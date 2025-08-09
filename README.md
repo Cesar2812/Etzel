@@ -1,7 +1,7 @@
 # Etzel
 
    ### Requisitos Previos
-    ### Configuración del Entorno de Desarrollo
+        -Configuración del Entorno de Desarrollo
         Para trabajar en este proyecto se requiere tener instalado y configurado lo siguiente:
 
         Visual Studio 2022 (versión Community o superior) con la carga de trabajo:
