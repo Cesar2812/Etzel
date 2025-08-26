@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LayerDataAccess\LayerDataAccess.csproj" />
+    <ProjectReference Include="..\LayerDomainModel\LayerDomainModel.csproj" />
+  </ItemGroup>
+
 </Project>

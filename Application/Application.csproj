@@ -10,4 +10,8 @@
     <Folder Include="Models\DTOS\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LayerBusiness\LayerBusiness.csproj" />
+  </ItemGroup>
+
 </Project>
