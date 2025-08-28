@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayerDataAccess", "LayerDat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayerDomainModel", "LayerDomainModel\LayerDomainModel.csproj", "{5D080DAA-7F2E-4C5E-9CDF-79BD3AAEBC30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayerBusiness", "LayerBusiness\LayerBusiness.csproj", "{2D733BB0-386D-43EE-AF15-B3512D0E9B1E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayerUsesCases", "LayerUsesCases\LayerUsesCases.csproj", "{44C8EF06-C2D8-4D75-8087-0F1BFEC398FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{5D080DAA-7F2E-4C5E-9CDF-79BD3AAEBC30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D080DAA-7F2E-4C5E-9CDF-79BD3AAEBC30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D080DAA-7F2E-4C5E-9CDF-79BD3AAEBC30}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2D733BB0-386D-43EE-AF15-B3512D0E9B1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D733BB0-386D-43EE-AF15-B3512D0E9B1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D733BB0-386D-43EE-AF15-B3512D0E9B1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D733BB0-386D-43EE-AF15-B3512D0E9B1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44C8EF06-C2D8-4D75-8087-0F1BFEC398FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44C8EF06-C2D8-4D75-8087-0F1BFEC398FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44C8EF06-C2D8-4D75-8087-0F1BFEC398FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44C8EF06-C2D8-4D75-8087-0F1BFEC398FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
