@@ -5,12 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LayerUsesCases.Rol
+namespace LayerUseCase.Usuario
 {
-    public interface IListarRol
+    public interface IListar
     {
-
-        public Task<List<DMRol>> ListarTipoRol();
+        public Task<List<DMUsuario>> ListarUsuario();
 
     }
 }

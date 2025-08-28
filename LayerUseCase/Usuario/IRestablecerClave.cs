@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LayerUsesCases.Usuario
+namespace LayerUseCase.Usuario
 {
     public interface IRestablecerClave
     {
-        Task<bool> RestablecerClaveUser(int idUsuario, string Clave);
+        public Task<bool> RestablecerClaveUser(int idUsuario, string Clave);
+
+
     }
 }

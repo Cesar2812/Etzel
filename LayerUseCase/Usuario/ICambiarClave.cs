@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LayerUsesCases.Usuario
+namespace LayerUseCase.Usuario
 {
     public interface ICambiarClave
     {
-
-        Task<bool> CambiarClaveUser(int idUsuario, string nuevaClave);
+        public Task<bool> CambiarClaveUser(int idUsuario, string nuevaClave);
 
     }
 }

@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Localizacion\" />
+    <Folder Include="Rol\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\LayerDomainModel\LayerDomainModel.csproj" />
   </ItemGroup>
 

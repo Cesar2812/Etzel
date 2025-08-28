@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LayerDomainModel\LayerDomainModel.csproj" />
+    <ProjectReference Include="..\LayerUseCase\LayerUseCase.csproj" />
   </ItemGroup>
 
 </Project>

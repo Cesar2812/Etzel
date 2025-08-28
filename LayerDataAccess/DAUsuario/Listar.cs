@@ -1,5 +1,5 @@
 ﻿using LayerDomainModel;
-using LayerUsesCases.Usuario;
+using LayerUseCase.Usuario;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -8,7 +8,7 @@ using System.Text;
 
 namespace LayerDataAccess.DAUsuario;
 
-public class Listar:IListarUsuario
+public class Listar:IListar
 {
     private readonly Conection _conection;
     private readonly ILogger<DMUsuario> _logger;
