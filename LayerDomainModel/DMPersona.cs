@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+namespace LayerDomainModel;
 
-namespace LayerDomainModel
+public interface DMPersona:DMPersonaNatural,DMPersonaJuridica
 {
-    internal class DMPersona
-    {
-    }
+    public int IdPersona { get; set; }
+    public string? NombrePersona { get; set; }
+
+    public int Id_municipo { get; set; }
+
+    public DMMunicipio? objMunicipio { get; set; }
+
 }

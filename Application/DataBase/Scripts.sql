@@ -173,7 +173,8 @@ GO
 
 CREATE TABLE SEGURIDAD.Usuario(
 	IdUsuario int primary key identity(1,1),
-	Foto varchar(100) not null,
+	RutaFoto varchar(100)null,
+	NombreFoto varchar(100)null,
 	idpersona int references CATALOGOS.Persona(IdPersona)not null unique,
 	Correo varchar(100) not null,
 	Clave_hash varchar(255)not null,

@@ -11,7 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LayerBusiness\LayerBusiness.csproj" />
+    <ProjectReference Include="..\LayerDomainModel\LayerDomainModel.csproj" />
+    <ProjectReference Include="..\LayerUsesCases\LayerUsesCases.csproj" />
   </ItemGroup>
 
 </Project>

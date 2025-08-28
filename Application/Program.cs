@@ -1,7 +1,43 @@
+using LayerDataAccess;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.Configure<Conection>(builder.Configuration.GetSection("ConnectionStrings"));//inyeccion de dependencia a la base de datos
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 var app = builder.Build();
 

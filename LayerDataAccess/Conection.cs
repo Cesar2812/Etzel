@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace LayerDataAccess;
 
-namespace LayerDataAccess
+public class Conection
 {
-    public class Conection
-    {
+    public string CadenaSQL { get; set; } = null!;
 
-    }
 }
