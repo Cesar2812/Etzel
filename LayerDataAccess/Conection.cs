@@ -2,6 +2,6 @@
 
 public class Conection
 {
-    public string CadenaSQL { get; set; } = null!;
+    public string CadenaSQL { get; set; } = null!; 
 
 }
