@@ -8,7 +8,7 @@ using System.Data;
 namespace LayerDataAccess.DAUsuario;
 
 
-public class GuardarFoto:IGuardarFoto
+public class GuardarFoto : IGuardarFoto
 {
     private readonly Conection _conection;
     private readonly ILogger<DMUsuario> _logger;

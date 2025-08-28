@@ -7,7 +7,7 @@ using System.Data;
 
 namespace LayerDataAccess.DAUsuario;
 
-public class CrearCuenta:ICrearCuenta
+public class CrearCuenta : ICrearCuenta
 {
     private readonly Conection _conection;
     private readonly ILogger<DMUsuario> _logger;

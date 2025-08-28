@@ -7,7 +7,7 @@ using System.Data;
 
 namespace LayerDataAccess.DAUsuario;
 
-public class CambiarClave:ICambiarClave
+public class CambiarClave : ICambiarClave
 {
     private readonly Conection _conection;
     private readonly ILogger<DMUsuario> _logger;

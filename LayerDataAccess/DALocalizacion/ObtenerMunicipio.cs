@@ -1,17 +1,13 @@
 ﻿using LayerDomainModel;
-using LayerUsesCases.Localizacion;
+using LayerUseCase.Localizacion;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
+
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LayerDataAccess.DALocalizacion
 {
-    public class ObtenerMunicipio:IObtenerMunicipio
+    public class ObtenerMunicipio : IObtenerMunicipio
     {
         private readonly Conection _conection;
 
