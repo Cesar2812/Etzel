@@ -1,7 +1,7 @@
 ﻿
 namespace LayerDomainModel;
 
-public interface DMPersona:DMPersonaNatural,DMPersonaJuridica
+public interface DMPersona : DMPersonaNatural, DMPersonaJuridica
 {
     public int IdPersona { get; set; }
     public string? NombrePersona { get; set; }

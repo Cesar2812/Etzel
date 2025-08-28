@@ -9,7 +9,7 @@ namespace LayerDomainModel
 
         public string? ApellidoPersonaNatural { get; set; }
 
-        public int Id_genero {  get; set; }
+        public int Id_genero { get; set; }
 
         public DMGenero? objGenero { get; set; }
 

@@ -1,5 +1,5 @@
 ﻿using LayerDomainModel;
-using LayerUsesCases.Rol;
+using LayerUseCase.Rol;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
 using System.Data;
@@ -7,7 +7,7 @@ using System.Data;
 
 namespace LayerDataAccess.DARol
 {
-    public class ListarRol:IListarRol
+    public class ListarRol : IListarRol
     {
 
         private readonly Conection _conection;

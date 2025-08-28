@@ -8,7 +8,7 @@ using System.Text;
 
 namespace LayerDataAccess.DAUsuario;
 
-public class Listar:IListar
+public class Listar : IListar
 {
     private readonly Conection _conection;
     private readonly ILogger<DMUsuario> _logger;

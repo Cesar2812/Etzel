@@ -7,7 +7,7 @@ using System.Data;
 
 namespace LayerDataAccess.DAUsuario
 {
-    public class RestablecerClave:IRestablecerClave
+    public class RestablecerClave : IRestablecerClave
     {
         private readonly Conection _conection;
         private readonly ILogger<DMUsuario> _logger;

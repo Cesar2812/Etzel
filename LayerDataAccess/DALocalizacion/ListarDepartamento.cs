@@ -1,12 +1,12 @@
 ﻿using LayerDomainModel;
-using LayerUsesCases.Localizacion;
+using LayerUseCase.Localizacion;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
 using System.Data;
 
 namespace LayerDataAccess.DALocalizacion
 {
-    public class ListarDepartamento:IListarDepartamento
+    public class ListarDepartamento : IListarDepartamento
     {
         private readonly Conection _conection;
 

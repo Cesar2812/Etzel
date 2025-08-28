@@ -1,6 +1,6 @@
 ﻿namespace LayerDomainModel;
 
-public class DMUsuario:DMPersona
+public class DMUsuario : DMPersona
 {
 
     //datos del Usuario
