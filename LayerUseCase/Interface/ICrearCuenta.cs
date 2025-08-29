@@ -2,7 +2,7 @@
 
 using LayerDomainModel;
 
-namespace LayerUseCase.Usuario
+namespace LayerUseCase.Interface
 {
     public interface ICrearCuenta
     {

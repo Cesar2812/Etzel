@@ -7,7 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\LayerDomainModel\LayerDomainModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Localizacion\" />
   </ItemGroup>
 
 </Project>

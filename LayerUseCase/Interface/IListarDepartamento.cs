@@ -1,6 +1,6 @@
 ﻿using LayerDomainModel;
 
-namespace LayerUseCase.Localizacion
+namespace LayerUseCase.Interface
 {
     public interface IListarDepartamento
     {

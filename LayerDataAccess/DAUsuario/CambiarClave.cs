@@ -1,5 +1,5 @@
 ﻿using LayerDomainModel;
-using LayerUseCase.Usuario;
+using LayerUseCase.Interface;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -15,12 +15,10 @@ public class CambiarClave : ICambiarClave
 
     private SqlConnection conexion;
 
-
     public CambiarClave(IOptions<Conection> options, ILogger<DMUsuario> logger)
     {
         _conection = options.Value;
     }
-
 
     //metodo para cambiar clave
     public async Task<bool> CambiarClaveUser(int idUsuario, string nuevaClave)
