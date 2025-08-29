@@ -1,11 +1,9 @@
 ﻿using LayerDomainModel;
 
-namespace LayerUseCase.Rol
+namespace LayerUseCase.Interface
 {
     public interface IListarRol
     {
-
-
         public Task<List<DMRol>> ListarTipoRol();
     }
 }

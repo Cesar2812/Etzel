@@ -1,4 +1,4 @@
-﻿namespace LayerUseCase.Usuario
+﻿namespace LayerUseCase.Interface
 {
     public interface ICambiarClave
     {

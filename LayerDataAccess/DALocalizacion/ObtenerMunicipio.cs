@@ -1,5 +1,5 @@
 ﻿using LayerDomainModel;
-using LayerUseCase.Localizacion;
+using LayerUseCase.Interface;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
 

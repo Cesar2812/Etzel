@@ -1,5 +1,5 @@
 ﻿using LayerDomainModel;
-using LayerUseCase.Usuario;
+using LayerUseCase.Interface;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
