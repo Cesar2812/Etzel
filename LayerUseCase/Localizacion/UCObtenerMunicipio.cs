@@ -1,0 +1,20 @@
+﻿using LayerDomainModel;
+using LayerUseCase.Interface;
+
+namespace LayerUseCase.Localizacion;
+
+public class UCObtenerMunicipio
+{
+    private readonly IObtenerMunicipio _obtenerMunicipio;    
+
+    public UCObtenerMunicipio( IObtenerMunicipio obtenerMunicipio)
+    {
+        _obtenerMunicipio = obtenerMunicipio;
+    }
+
+    public async Task<List<DMMunicipio>> ObtenerMunicipi(string idDepartamento)
+    {
+        var listaMunicipio = await _obtenerMunicipio.ObtenerMunicipi(idDepartamento);
+        return listaMunicipio;
+    }
+}
