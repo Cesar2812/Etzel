@@ -6,11 +6,21 @@ using LayerUseCase.Interface;
 using LayerUseCase.Localizacion;
 using LayerUseCase.Rol;
 using LayerUseCase.Usuario;
+using LayerAdapters;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+// Cargar configuración desde JSON y luego sobrescribe con variables de entorno
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+    .AddEnvironmentVariables();
+
+
 builder.Services.Configure<Conection>(builder.Configuration.GetSection("ConnectionStrings"));//inyeccion de dependencia a la base de datos
 
 //Inyeccion de depencias inyectando las clases que van a implementar una interface del caso de uso de Usuarios
@@ -18,8 +28,10 @@ builder.Services.Configure<Conection>(builder.Configuration.GetSection("Connecti
 builder.Services.AddScoped<ICrearCuenta, CrearCuenta>();
 builder.Services.AddScoped<ICambiarClave, CambiarClave>();
 builder.Services.AddScoped<IGuardarFoto, GuardarFoto>();
-builder.Services.AddScoped<IRestablecerClave, RestablecerClave>();
+builder.Services.AddScoped<IRestablecerClave,RestablecerClave>();
+builder.Services.AddScoped<IRecibirCorreo, ReceiveEmail>();
 builder.Services.AddScoped<IListar, Listar>();
+builder.Services.AddScoped<IGuardarFotoServidor, GuardarFotoEnServidor>();
 
 //lista de Roles
 builder.Services.AddScoped<IListarRol, ListarRol>();
@@ -29,15 +41,14 @@ builder.Services.AddScoped<IListarDepartamento, ListarDepartamento>();
 builder.Services.AddScoped<IObtenerMunicipio, ObtenerMunicipio>();
 
 
+
 builder.Services.AddScoped<UCcrearCuentaUser>();
 builder.Services.AddScoped<UCGuardarFoto>();
 builder.Services.AddScoped<UCRestablecerClave>();
 builder.Services.AddScoped<UCCambiarClave>();
 builder.Services.AddScoped<UCListarUsuario>();
-
+builder.Services.AddScoped<UCSubirFotoServidor>();
 builder.Services.AddScoped<UCListarRol>();
-
-
 builder.Services.AddScoped<UCObtenerDepartamento>();
 builder.Services.AddScoped<UCObtenerMunicipio>();
 
