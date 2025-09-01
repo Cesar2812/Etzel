@@ -1,4 +1,6 @@
-﻿namespace LayerDomainModel;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace LayerDomainModel;
 
 public class DMUsuario : DMPersona
 {
@@ -14,11 +16,19 @@ public class DMUsuario : DMPersona
 
 
     //campos para el guardado de la imagen o foto del Usuario
-    public string? RutaFoto { get; set; }
+    public string? RutaFoto { get; set; }//ruta
 
-    public string? NombreFoto { get; set; }
+    public string? NombreFoto { get; set; }//descripcion
+
+    public IFormFile? archivo { get; set; }
+
     public string? Base64 { get; set; }
 
     public string? Extension { get; set; }
+
+
+
+    //datos para la vista 
+    public string? confirmarClave { get; set; }
 
 }

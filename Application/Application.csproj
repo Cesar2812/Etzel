@@ -2,17 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\DTOS\" />
+    <ProjectReference Include="..\LayerAdapters\LayerAdapters.csproj" />
+    <ProjectReference Include="..\LayerDataAccess\LayerDataAccess.csproj" />
+    <ProjectReference Include="..\LayerDomainModel\LayerDomainModel.csproj" />
+    <ProjectReference Include="..\LayerUseCase\LayerUseCase.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LayerDataAccess\LayerDataAccess.csproj" />
-    <ProjectReference Include="..\LayerUseCase\LayerUseCase.csproj" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
   </ItemGroup>
 
 </Project>

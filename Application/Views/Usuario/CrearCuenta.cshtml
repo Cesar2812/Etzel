@@ -1,0 +1,51 @@
+﻿@model Application.Models.ViewModels.UserViewModel
+
+@{
+    ViewData["Title"] = "CrearCuenta";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>CrearCuenta</h1>
+
+<h4>UserViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CrearCuenta" asp-controller="Usuario" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Correo" class="control-label"></label>
+                <input asp-for="Correo" class="form-control" />
+                @if (ViewBag.ErrorCorreo != null)
+                {
+                     <div class="alert alert-danger text-danger" role="alert">
+                        @ViewBag.ErrorCorreo
+                            </div>
+                }
+            </div>
+            <div class="form-group">
+                <label asp-for="Clave" class="control-label"></label>
+                <input asp-for="Clave" class="form-control" />
+               
+                @if (ViewBag.ErrorClave != null)
+                {
+                    <div class="alert alert-danger text-danger" role="alert">
+                        @ViewBag.ErrorClave
+                    </div>
+                }
+            </div>
+           
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

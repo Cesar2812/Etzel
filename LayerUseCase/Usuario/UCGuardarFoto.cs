@@ -1,5 +1,6 @@
 ﻿using LayerDomainModel;
 using LayerUseCase.Interface;
+using Microsoft.AspNetCore.Http;
 
 namespace LayerUseCase.Usuario;
 
@@ -13,6 +14,7 @@ public class UCGuardarFoto
     }
 
 
+    //en base de datos
     public async Task<bool> GuardarFoto(DMUsuario objetoUsuario)
     {
         bool resultado = await _guardarFoto.GuardarFotoUsuario(objetoUsuario);
