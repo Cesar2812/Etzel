@@ -1,4 +1,4 @@
-﻿@model Application.Models.ViewModels.UserViewModel
+﻿@model LayerDomainModel.DMUsuario
 
 @{
     ViewData["Title"] = "CrearCuenta";
@@ -24,8 +24,8 @@
                 }
             </div>
             <div class="form-group">
-                <label asp-for="Clave" class="control-label"></label>
-                <input asp-for="Clave" class="form-control" />
+                <label asp-for="Clave_hash" class="control-label"></label>
+                <input asp-for="Clave_hash" class="form-control" />
                
                 @if (ViewBag.ErrorClave != null)
                 {

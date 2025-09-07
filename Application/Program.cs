@@ -7,6 +7,8 @@ using LayerUseCase.Localizacion;
 using LayerUseCase.Rol;
 using LayerUseCase.Usuario;
 using LayerAdapters;
+using LayerDataAccess.DASectorEconomico;
+using LayerUseCase.SectorEconomico;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,6 +42,9 @@ builder.Services.AddScoped<IListarRol, ListarRol>();
 builder.Services.AddScoped<IListarDepartamento, ListarDepartamento>();
 builder.Services.AddScoped<IObtenerMunicipio, ObtenerMunicipio>();
 
+//lista de SectoresEconomicos 
+builder.Services.AddScoped<IListarSectorEconomico, ObtenerSectorEconomico>();
+
 
 
 builder.Services.AddScoped<UCcrearCuentaUser>();
@@ -51,6 +56,7 @@ builder.Services.AddScoped<UCSubirFotoServidor>();
 builder.Services.AddScoped<UCListarRol>();
 builder.Services.AddScoped<UCObtenerDepartamento>();
 builder.Services.AddScoped<UCObtenerMunicipio>();
+builder.Services.AddScoped<UCListarSectorEconomico>();
 
 
 

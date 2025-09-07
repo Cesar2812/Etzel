@@ -9,7 +9,7 @@ CREATE OR ALTER PROCEDURE SEGURIDAD.sp_RegistrarUsuario
     -- Persona Jurídica
     @NumeroRuc VARCHAR(100) = NULL,
     @RazonSocial VARCHAR(100) = NULL,
-
+	@idSectorEconomico int=NULL,
     -- Persona Natural
     @CedulaPersonaNatural VARCHAR(100) = NULL,
     @ApellidoPersonaNatural VARCHAR(100) = NULL,
@@ -68,8 +68,8 @@ BEGIN
         -- Insertar en PersonaJuridica o PersonaNatural según el rol
         IF @DescripcionRol = 'MIPYME'
         BEGIN
-            INSERT INTO CATALOGOS.PersonaJuridica (NumeroRuc, Id_persona, RazonSocial)
-            VALUES (@NumeroRuc, @IdPersona, @RazonSocial);
+            INSERT INTO CATALOGOS.PersonaJuridica (NumeroRuc, Id_persona, RazonSocial,idTipoSectorEconomico)
+            VALUES (@NumeroRuc, @IdPersona, @RazonSocial,@idSectorEconomico);
         END
         ELSE IF @DescripcionRol IN ('Experto', 'Diseñador')
         BEGIN
