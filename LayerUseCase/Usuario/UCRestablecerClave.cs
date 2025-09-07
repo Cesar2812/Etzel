@@ -41,6 +41,7 @@ public class UCRestablecerClave
             return false;
         }
     }
+
     public static string GenerarClave()
     {
         string clave = Guid.NewGuid().ToString("N").Substring(0, 8);

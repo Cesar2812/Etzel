@@ -42,6 +42,7 @@ public class CrearCuenta : ICrearCuenta
             //persona Juridica
             cmd.Parameters.AddWithValue("@NumeroRuc", (object)objetoUsuario.NumeroRuc ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@RazonSocial", (object)objetoUsuario.RazonSocial ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@idSectorEconomico", (object)objetoUsuario.idSectorEconomico ?? DBNull.Value);
 
             //persona Natural
             cmd.Parameters.AddWithValue("@CedulaPersonaNatural", (object)objetoUsuario.CedulaPerosonaNatural ?? DBNull.Value);
@@ -76,7 +77,6 @@ public class CrearCuenta : ICrearCuenta
                 await conexion.CloseAsync();
             }
         }
-
         return idAutogenerado;
     }
 }

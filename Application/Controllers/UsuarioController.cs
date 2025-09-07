@@ -1,8 +1,10 @@
 ﻿using LayerDomainModel;
 using LayerUseCase.Localizacion;
 using LayerUseCase.Rol;
+using LayerUseCase.SectorEconomico;
 using LayerUseCase.Usuario;
 using Microsoft.AspNetCore.Mvc;
+
 
 
 namespace Application.Controllers;
@@ -18,9 +20,11 @@ public class UsuarioController : Controller
     private readonly UCObtenerMunicipio _obtenerMunicipio;
     private readonly UCSubirFotoServidor _subirFotoServidor;
     private readonly UCListarUsuario _listarUsuario;
+    private readonly UCListarSectorEconomico _listarSector;
 
     public UsuarioController(UCcrearCuentaUser crearCuenta, UCGuardarFoto guardarFoto,UCRestablecerClave restablecerClave, UCCambiarClave cambiarClave,
-    UCListarRol listarRol,UCObtenerDepartamento obtenerDepartamento, UCObtenerMunicipio obtenerMunicipio,UCSubirFotoServidor subirFoto,UCListarUsuario listUsuario) 
+    UCListarRol listarRol,UCObtenerDepartamento obtenerDepartamento, UCObtenerMunicipio obtenerMunicipio,UCSubirFotoServidor subirFoto,UCListarUsuario listUsuario,
+    UCListarSectorEconomico listarSector) 
     { 
         _crearCuenta = crearCuenta;
         _guuadarFoto = guardarFoto;
@@ -31,30 +35,65 @@ public class UsuarioController : Controller
         _obtenerMunicipio=obtenerMunicipio;
         _subirFotoServidor= subirFoto;
         _listarUsuario = listUsuario;
+        _cambiarClave = cambiarClave;
     }
 
-
+    #region Vistas
     //Vista de Creacion de Cuenta
     public IActionResult CrearCuenta()
     {
         return View();
     }
 
-    //restablecimiento o recuperacion de clave
+    //Vista de Restablecimiento o recuperacion de clave
     public IActionResult RestablecerClave()
     {
         return View();
     }
 
-    //cambio de clave
+    //Vista de Cambio de clave
     public IActionResult CambiarClave()
     {
         return View();
     }
+    #endregion
+
+
+    #region RecursosDeMuestraEnElFormulario
+
+    [HttpGet]
+    public async Task<IActionResult> ListarDepartamento()
+    {
+        List<DMDepartamento> lista = await _obtenerDepartamento.ListaDepartament();
+        return Json(new { listaDepartamento = lista });
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> ObtenerMunicipio(string idDepartamento)
+    {
+        List<DMMunicipio> lista = await _obtenerMunicipio.ObtenerMunicipi(idDepartamento);
+        return Json(new { listaMunicipo = lista });
+    }
+
+
+    [HttpGet]
+    public async Task<IActionResult> ListarSectorEconomico()
+    {
+        List<DMTipoSectorEconomico> lista = await _listarSector.ListarSectorEconomico();
+        return Json(new { listaDepartamento = lista });
+    }
 
 
 
-    //crear cuenta de Usuario
+
+
+
+
+
+    #endregion
+
+    //metodo de crear cuenta de Usuario
     [HttpPost]
     public async Task<IActionResult> CrearCuenta(DMUsuario user)
     {
@@ -66,8 +105,6 @@ public class UsuarioController : Controller
             ViewBag.ErrorDefoto = "La Foto es Requerida.";
             return View();
         }
-
-       
         if (resultado > 0)
         {
                 user.IdUsuario = resultado;//captura el id del usuario insertado en la tabla

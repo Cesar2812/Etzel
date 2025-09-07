@@ -70,9 +70,7 @@ GO
 
 
 
-
-
-
+select * from CATALOGOS.TipoSectorEconomico
 
 CREATE TABLE CATALOGOS.TipoSectorEconomico(
 	IdTipoSectorEconomico int primary key identity(1,1),
@@ -82,12 +80,6 @@ CREATE TABLE CATALOGOS.TipoSectorEconomico(
 GO
 
 
-CREATE TABLE CATALOGOS.TipoPresentacion(
-	IdTipoPresentacion int primary key identity(1,1),
-	DescripcionPresentacion varchar(100) not null
-);
-GO
-
 
 CREATE TABLE CATALOGOS.UnidadMedida(
 	IdUnidadMedida int primary key identity(1,1),
@@ -96,6 +88,7 @@ CREATE TABLE CATALOGOS.UnidadMedida(
 );
 GO
 
+
 CREATE TABLE CATALOGOS.TipoInsumo(
 	IdInsumo int primary key identity(1,1),
 	NombreInsumo varchar(100),
@@ -103,7 +96,10 @@ CREATE TABLE CATALOGOS.TipoInsumo(
 );
 GO
 
-CREATE TABLE CATALOGOS.InsumoUsuario(
+
+
+----CREACION DE TABLAS DE PROCESOS PRODUCTIVOS
+CREATE TABLE PROCESOSPRODUCTIVOS.InsumoUsuario(
 	IdInsumo_Usuario int primary key identity(1,1),
 	Id_insumo int references CATALOGOS.TipoInsumo(IdInsumo)not null,
 	Id_usuario int references SEGURIDAD.Usuario(IdUsuario)not null,
@@ -111,29 +107,23 @@ CREATE TABLE CATALOGOS.InsumoUsuario(
 );
 GO
 
-
 CREATE TABLE PROCESOSPRODUCTIVOS.Producto(
 	IdProducto int primary key identity(1,1),
 	NombreProducto varchar(100)not null,
 	DescripcionProducto text not null,
+	RutaFoto varchar(100)null,
+	NombreFoto varchar(100)null,
 	Id_sectorEconomico int references CATALOGOS.TipoSectorEconomico(IdTipoSectorEconomico)not null,
 	Dimensiones varchar(100)not null,
 );
 GO
 
-CREATE TABLE PROCESOSPRODUCTIVOS.ProductoPresentacionUsuario(
-	IdProductoPresentacionUsuario int identity(1,1),
-	Id_usuario int references SEGURIDAD.Usuario(IdUsuario)not null,
-	Id_producto int references CATALOGOS.Producto(IdProducto)not null,
-	Id_tipoPresentacion int references CATALOGOS.TipoPresentacion(IdTipoPresentacion)not null,
-);
-GO
 
 
 CREATE TABLE PROCESOSPRODUCTIVOS.Producto_Usuario(
 	IdProductoUsuario int identity(1,1),
 	Id_usuario int references SEGURIDAD.Usuario(IdUsuario)not null,
-	Id_producto int references CATALOGOS.Producto(IdProducto)not null
+	Id_producto int references PROCESOSPRODUCTIVOS.Producto(IdProducto)not null
 );
 GO
 
