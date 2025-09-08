@@ -24,6 +24,7 @@ builder.Configuration
 
 
 builder.Services.Configure<Conection>(builder.Configuration.GetSection("ConnectionStrings"));//inyeccion de dependencia a la base de datos
+builder.Services.Configure<Ruta>(builder.Configuration.GetSection("Configuracion"));//inyecccion de depencias al servidor de imagenes o carpeta para almacenar imagenes
 
 //Inyeccion de depencias inyectando las clases que van a implementar una interface del caso de uso de Usuarios
 //casos de uso de usuarios

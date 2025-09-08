@@ -83,16 +83,11 @@ public class UsuarioController : Controller
         List<DMTipoSectorEconomico> lista = await _listarSector.ListarSectorEconomico();
         return Json(new { listaDepartamento = lista });
     }
-
-
-
-
-
-
-
-
     #endregion
 
+
+
+    #region MetodosHttp
     //metodo de crear cuenta de Usuario
     [HttpPost]
     public async Task<IActionResult> CrearCuenta(DMUsuario user)
@@ -109,11 +104,10 @@ public class UsuarioController : Controller
         {
                 user.IdUsuario = resultado;//captura el id del usuario insertado en la tabla
 
-                string extension = Path.GetExtension(user.archivo.FileName);
-                string nombreGenerdo = $"usuario_{user.IdUsuario}{extension}";
-                string nombreFoto=await _subirFotoServidor.AgregarFotoEnServidor(user,nombreGenerdo);
-                user.NombreFoto=nombreFoto;
-                user.RutaFoto = Path.Combine("uploads", nombreFoto);
+   
+                string rutafoto=await _subirFotoServidor.AgregarFotoEnServidor(user);
+                user.NombreFoto=user.archivo.FileName;
+                user.RutaFoto=rutafoto;
 
                 //guardar foto en base de datos
             bool guardado = await _guuadarFoto.GuardarFoto(user);
@@ -197,4 +191,6 @@ public class UsuarioController : Controller
             return View();
         }
     }
+    #endregion
+
 }

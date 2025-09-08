@@ -72,8 +72,9 @@
                 entorno de desarrollo, evitando tambien no exponer el puerto de SQL Server a redes externas; el acceso está limitado a la máquina local del equipo.
                 Las conexiones están limitadas a entornos locales para prevenir accesos externos no autorizados.
 
-         7)
-
+            7)Configurar el servidor o carpeta de imagenes,creando una carpeta en el directorio de
+             creacion del proyecto y luego crear una varible de entorno con esta ruta, para que el archivo appsettings pueda reconocerla, crearla de la 
+             siguiente manera $env:Configuracion__RutaServidor= ruta de la carpeta dentro del directorio
 
 
         8) Configurar IIS Express (por defecto en Visual Studio 2022)para ejecucion del proyecto en entorno local de pruebas:
