@@ -183,7 +183,7 @@ public class UsuarioController : Controller
         if (respuesta)
         {
             TempData["SuccessMessage"] = "Clave Cambiada Exitosamente";
-            return View();
+            return View(); 
         }
         else
         {
