@@ -6,7 +6,7 @@
     la gestion de costos y  la calidad de sus productos finales mediante una calculadora de cantidades y porciones de materiales o insumos necesarios
     para la fabricacion de uno de sus productos mediante una formulacion inicial.Esto con el fin de ofrecer a las Mypymes una herramienta centralizada y colaborativa, cuyo componente 
     crucial sera la integracion de un Marketplace convirtiendo a este sistema o plataforma en un repositororio de conocimiento compartido
-    en el cual las Mypymes, Disenadores y Expertos puedan publicar su recursos como patrones, moldes, formularios, o plantillas(estableciendolos como medios descargables o de paga).
+    en el cual las Mypymes, Diseñadores y Expertos puedan publicar su recursos como patrones, moldes, formularios, o plantillas(estableciendolos como medios descargables o de paga).
     Integrando tambien un asistente virtual sobre esta plataforma para que funcione como un medio de sugerencias para mejorar la estadarizacion de los procesos realizados
     por estas MyPymes.
 
@@ -32,9 +32,9 @@
 
 #       Instrucciones de Instalación y Configuracion
                 Estas herramientas son unicamente para usarse en sistemas opertaivos Windows, pero cabe recalcar que la app
-                es multiplaforma y puede ser deplagada en servidores Linux o Windows(Nota: si se quisiera llevar a futuras implemnetaciones y produccion)
+                es multiplaforma y puede ser deplagada en servidores Linux o Windows(Nota: si se quisiera llevar a futuras implementaciones y produccion)
         
-        Antes de instalar estas herramientas en Windows cabe senalar que hay que tener instalado Microsft Visual C++ 2015-222 Redistribuible X64 
+        Antes de instalar estas herramientas en Windows cabe señalar que hay que tener instalado Microsft Visual C++ 2015-222 Redistribuible X64 
         o dependiendo la arquitectura de su sistema operativo Windows ya que estas herramientas que se instalaran al ser de Microsoft necesitan
         este intermediario dentro del sistema para poder ser ejecutadas.
 
@@ -72,9 +72,9 @@
                 entorno de desarrollo, evitando tambien no exponer el puerto de SQL Server a redes externas; el acceso está limitado a la máquina local del equipo.
                 Las conexiones están limitadas a entornos locales para prevenir accesos externos no autorizados.
 
-            7)Configurar el servidor o carpeta de imagenes,creando una carpeta en el directorio de
-             creacion del proyecto y luego crear una varible de entorno con esta ruta, para que el archivo appsettings pueda reconocerla, crearla de la 
-             siguiente manera $env:Configuracion__RutaServidor= ruta de la carpeta dentro del directorio
+        7)Configurar el servidor o carpeta de imagenes,creando una carpeta en el directorio de
+        creacion del proyecto y luego crear una varible de entorno con esta ruta, para que el archivo appsettings pueda reconocerla, crearla de la 
+        siguiente manera $env:Configuracion__RutaServidor= ruta de la carpeta dentro del directorio
 
 
         8) Configurar IIS Express (por defecto en Visual Studio 2022)para ejecucion del proyecto en entorno local de pruebas:
