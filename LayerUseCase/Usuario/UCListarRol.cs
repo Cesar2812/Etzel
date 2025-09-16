@@ -2,7 +2,7 @@
 using LayerUseCase.Interface;
 
 
-namespace LayerUseCase.Rol;
+namespace LayerUseCase.Usuario;
 
 public class UCListarRol
 {

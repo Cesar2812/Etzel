@@ -4,29 +4,29 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
 using System.Data;
 
-namespace LayerDataAccess.DALocalizacion;
+namespace LayerDataAccess.DAUsuario;
 
-public class ListarDepartamento : IListarDepartamento
+
+public class ListarRol : IListarRol
 {
     private readonly Conection _conection;
-
     SqlConnection conexion;
 
-    public ListarDepartamento(IOptions<Conection> options)
+    public ListarRol(IOptions<Conection> options)
     {
-        _conection = options.Value;//valor de la cadena de conexion
+        _conection = options.Value;
     }
 
-    //Tarea para Listar Departamento de forma asincrona a la BD
-    public async Task<List<DMDepartamento>> ListaDepartament()
+    //Tarea para Listar Roles de forma asincrona a la BD
+    public async Task<List<DMRol>> ListarTipoRol()
     {
-        List<DMDepartamento> lista = new List<DMDepartamento>();
+        List<DMRol> lista = new List<DMRol>();
 
         try
         {
             using (conexion = new SqlConnection(_conection.CadenaSQL))
             {
-                string consulta = "select * from LOCALIZACION.Departamento";
+                string consulta = "select * from SEGURIDAD.RolUsuario";
 
                 await conexion.OpenAsync();
                 SqlCommand comando = new SqlCommand(consulta, conexion);
@@ -35,28 +35,27 @@ public class ListarDepartamento : IListarDepartamento
 
                 using (var dr = await comando.ExecuteReaderAsync())
                 {
-                    while (await dr.ReadAsync())//leyendo en otro hilo
+                    while (await dr.ReadAsync())
                     {
                         lista.Add
                         (
-                            new DMDepartamento()
+                            new DMRol()
                             {
-                                IdDepartamento = Convert.ToInt32(dr["IdDepartamento"].ToString()),
-                                NombreDepartamento = dr["NombreDepartamento"].ToString()
+                                IdRolUsuario = Convert.ToInt32(dr["IdRolUsuario"].ToString()),
+                                DescripcionRol = dr["DescripcionRol"].ToString()
                             }
                         );
-
                     }
                 }
             }
         }
         catch
         {
-            lista = new List<DMDepartamento>();//lista vacia o null
+            lista = new List<DMRol>();
         }
         finally
         {
-            await conexion.CloseAsync();//liberando la conexion
+            await conexion.CloseAsync();
         }
 
         return lista;

@@ -1,7 +1,7 @@
 ﻿using LayerDomainModel;
 using LayerUseCase.Interface;
 
-namespace LayerUseCase.Localizacion;
+namespace LayerUseCase.Usuario;
 
 public class UCObtenerMunicipio
 {

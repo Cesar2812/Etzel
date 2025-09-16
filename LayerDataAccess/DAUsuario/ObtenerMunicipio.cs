@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 using System.Data;
 
-namespace LayerDataAccess.DALocalizacion
+namespace LayerDataAccess.DAUsuario
 {
     public class ObtenerMunicipio : IObtenerMunicipio
     {
