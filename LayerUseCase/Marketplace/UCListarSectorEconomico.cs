@@ -1,12 +1,8 @@
 ﻿using LayerDomainModel;
 using LayerUseCase.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace LayerUseCase.SectorEconomico
+
+namespace LayerUseCase.Marketplace
 {
     public class UCListarSectorEconomico
     {

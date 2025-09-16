@@ -33,7 +33,7 @@ public class CrearCuenta : ICrearCuenta
             cmd.Parameters.AddWithValue("@NombrePersona", objetoUsuario.NombrePersona);
             cmd.Parameters.AddWithValue("@IdMunicipio", objetoUsuario.Id_municipo);
             //usuario
-            cmd.Parameters.AddWithValue("@Correo ", objetoUsuario.Correo);
+            cmd.Parameters.AddWithValue("@Correo", objetoUsuario.Correo);
             cmd.Parameters.AddWithValue("@ClaveHash", objetoUsuario.Clave_hash);
             cmd.Parameters.AddWithValue("@IdRol", objetoUsuario.idtipoUsuario);
 
@@ -70,7 +70,7 @@ public class CrearCuenta : ICrearCuenta
             {
 
                 _logger.LogCritical(ex, "Se ha producido un error inesperado al crear la cuenta.");
-                throw new ApplicationException("Ocurrió un error inesperado. Por favor, contacte al soporte.", ex);
+                throw new ApplicationException("Ocurrió un error inesperado", ex);
             }
             finally
             {

@@ -63,8 +63,25 @@ INSERT INTO CATALOGOS.Genero(DescripcionGenero)
 VALUES('Masculino'),('Femenino')
 GO
 
+
+----TABLA TIPOSECTORECONOMICO---
+INSERT INTO CATALOGOS.TipoSectorEconomico(NombreSector)
+VALUES('Textil y Vestuario'),('Madera y Muebles'),('Cuero y Productos Derivados'),('Alimentos y Bebidas')
+
+---TABLA ESTADO RECURSO---
+INSERT INTO CATALOGOS.EstadoRecurso(DescripcionEstadoRecurso)
+VALUES('Gratuito'),('De Paga')
+
+---TABLA TIPORECURSO-----
+INSERT INTO CATALOGOS.TipoRecurso(NombreTipoRecurso)
+VALUES('Patron'),('Molde'),('Plantilla'),('Formulario'),('Manual')
+
+
+
+
 ---ESQUEMA DE SEGURIDAD---
 ----TABLA USUARIO ROL---
 INSERT INTO SEGURIDAD.RolUsuario(DescripcionRol)
 VALUES('MIPYME'),('Experto'),('Diseñador')
 GO
+

@@ -4,29 +4,30 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
 using System.Data;
 
-namespace LayerDataAccess.DARol;
 
+namespace LayerDataAccess.DAMarketplace;
 
-public class ListarRol : IListarRol
+public class ObtenerTipoRecurso:IListarTipoRecusro
 {
     private readonly Conection _conection;
+
     SqlConnection conexion;
 
-    public ListarRol(IOptions<Conection> options)
+    public ObtenerTipoRecurso(IOptions<Conection> options)
     {
         _conection = options.Value;
     }
 
-    //Tarea para Listar Roles de forma asincrona a la BD
-    public async Task<List<DMRol>> ListarTipoRol()
+
+    public async Task<List<DMTipoRecurso>> ListarTipoRecuro()
     {
-        List<DMRol> lista = new List<DMRol>();
+        List<DMTipoRecurso> lista = new List<DMTipoRecurso>();
 
         try
         {
             using (conexion = new SqlConnection(_conection.CadenaSQL))
             {
-                string consulta = "select * from SEGURIDAD.RolUsuario";
+                string consulta = "select * from CATALOGOS.TipoRecurso";
 
                 await conexion.OpenAsync();
                 SqlCommand comando = new SqlCommand(consulta, conexion);
@@ -35,27 +36,28 @@ public class ListarRol : IListarRol
 
                 using (var dr = await comando.ExecuteReaderAsync())
                 {
-                    while (await dr.ReadAsync())
+                    while (await dr.ReadAsync())//leyendo en otro hilo
                     {
                         lista.Add
                         (
-                            new DMRol()
+                            new DMTipoRecurso()
                             {
-                                IdRolUsuario = Convert.ToInt32(dr["IdRolUsuario"].ToString()),
-                                DescripcionRol = dr["DescripcionRol"].ToString()
+                                IdTipoRecurso = Convert.ToInt32(dr["IdTipoRecurso"].ToString()),
+                                NombreTipoRecurso = dr["NombreTipoRecurso"].ToString()
                             }
                         );
+
                     }
                 }
             }
         }
         catch
         {
-            lista = new List<DMRol>();
+            lista = new List<DMTipoRecurso>();//lista vacia o null
         }
         finally
         {
-            await conexion.CloseAsync();
+            await conexion.CloseAsync();//liberando la conexion
         }
 
         return lista;

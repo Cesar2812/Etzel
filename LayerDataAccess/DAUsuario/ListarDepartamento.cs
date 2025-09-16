@@ -2,33 +2,31 @@
 using LayerUseCase.Interface;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
-
 using System.Data;
 
+namespace LayerDataAccess.DAUsuario;
 
-namespace LayerDataAccess.DASectorEconomico;
-
-public class ObtenerSectorEconomico:IListarSectorEconomico
+public class ListarDepartamento : IListarDepartamento
 {
     private readonly Conection _conection;
 
     SqlConnection conexion;
 
-    public ObtenerSectorEconomico(IOptions<Conection> options)
+    public ListarDepartamento(IOptions<Conection> options)
     {
         _conection = options.Value;//valor de la cadena de conexion
     }
 
-    public async Task<List<DMTipoSectorEconomico>> ListarSectorEconomico()
+    //Tarea para Listar Departamento de forma asincrona a la BD
+    public async Task<List<DMDepartamento>> ListaDepartament()
     {
-
-        List<DMTipoSectorEconomico> lista = new List<DMTipoSectorEconomico>();
+        List<DMDepartamento> lista = new List<DMDepartamento>();
 
         try
         {
             using (conexion = new SqlConnection(_conection.CadenaSQL))
             {
-                string consulta = "select * from CATALOGOS.TipoSectorEconomico";
+                string consulta = "select * from LOCALIZACION.Departamento";
 
                 await conexion.OpenAsync();
                 SqlCommand comando = new SqlCommand(consulta, conexion);
@@ -41,11 +39,10 @@ public class ObtenerSectorEconomico:IListarSectorEconomico
                     {
                         lista.Add
                         (
-                            new DMTipoSectorEconomico()
+                            new DMDepartamento()
                             {
-                                IdTipoSectorEconomico = Convert.ToInt32(dr["IdTipoSectorEconomico"].ToString()),
-                                NombreSector = dr["NombreSector"].ToString(),
-                                DescripcionSector = dr["DescripcionSector"].ToString()
+                                IdDepartamento = Convert.ToInt32(dr["IdDepartamento"].ToString()),
+                                NombreDepartamento = dr["NombreDepartamento"].ToString()
                             }
                         );
 
@@ -55,7 +52,7 @@ public class ObtenerSectorEconomico:IListarSectorEconomico
         }
         catch
         {
-            lista = new List<DMTipoSectorEconomico>();//lista vacia o null
+            lista = new List<DMDepartamento>();//lista vacia o null
         }
         finally
         {
@@ -63,6 +60,5 @@ public class ObtenerSectorEconomico:IListarSectorEconomico
         }
 
         return lista;
-
     }
 }

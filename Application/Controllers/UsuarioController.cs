@@ -1,7 +1,5 @@
 ﻿using LayerDomainModel;
-using LayerUseCase.Localizacion;
-using LayerUseCase.Rol;
-using LayerUseCase.SectorEconomico;
+using LayerUseCase.Marketplace;
 using LayerUseCase.Usuario;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,10 +19,11 @@ public class UsuarioController : Controller
     private readonly UCSubirFotoServidor _subirFotoServidor;
     private readonly UCListarUsuario _listarUsuario;
     private readonly UCListarSectorEconomico _listarSector;
+    private readonly UCListarGenero _listarGenero;
 
     public UsuarioController(UCcrearCuentaUser crearCuenta, UCGuardarFoto guardarFoto,UCRestablecerClave restablecerClave, UCCambiarClave cambiarClave,
     UCListarRol listarRol,UCObtenerDepartamento obtenerDepartamento, UCObtenerMunicipio obtenerMunicipio,UCSubirFotoServidor subirFoto,UCListarUsuario listUsuario,
-    UCListarSectorEconomico listarSector) 
+    UCListarSectorEconomico listarSector,UCListarGenero listarGenero) 
     { 
         _crearCuenta = crearCuenta;
         _guuadarFoto = guardarFoto;
@@ -36,6 +35,7 @@ public class UsuarioController : Controller
         _subirFotoServidor= subirFoto;
         _listarUsuario = listUsuario;
         _cambiarClave = cambiarClave;
+        _listarGenero= listarGenero;
     }
 
     #region Vistas
@@ -83,6 +83,14 @@ public class UsuarioController : Controller
         List<DMTipoSectorEconomico> lista = await _listarSector.ListarSectorEconomico();
         return Json(new { listaDepartamento = lista });
     }
+
+
+    [HttpGet]
+    public async Task<IActionResult> ListarGenero()
+    {
+        List<DMGenero> lista= await _listarGenero.ListarGenero();
+        return Json(new { listaGenero = lista });
+    }
     #endregion
 
 
@@ -104,7 +112,6 @@ public class UsuarioController : Controller
         {
                 user.IdUsuario = resultado;//captura el id del usuario insertado en la tabla
 
-   
                 string rutafoto=await _subirFotoServidor.AgregarFotoEnServidor(user);
                 user.NombreFoto=user.archivo.FileName;
                 user.RutaFoto=rutafoto;
