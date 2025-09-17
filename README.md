@@ -1,14 +1,14 @@
-####                                                                       ETZEL
+####                                                                       ETZÉL
 
-# Proposito de la plataforma Etzel
-    #El proposito de la creacion de esta plataforma es implementar un medio web donde Mypymes en sectores como textiles,muebles,cueros y sus derivados,
+# Proposito de la plataforma Etzél
+    El proposito de la creacion de esta plataforma es implementar un medio web donde las micro, pequeñas y medianas empresas (MIPYME's) en sectores como textiles, muebles, cueros y sus derivados,
     tambien en sectores como alimentos y bebidas, puedan ser ayudadas a estandarizar y optimizar sus procesos productivos con el fin de mejorar la eficiencia,
-    la gestion de costos y  la calidad de sus productos finales mediante una calculadora de cantidades y porciones de materiales o insumos necesarios
-    para la fabricacion de uno de sus productos mediante una formulacion inicial.Esto con el fin de ofrecer a las Mypymes una herramienta centralizada y colaborativa, cuyo componente 
+    la gestion de costos y la calidad de sus productos finales mediante una calculadora de cantidades y porciones de materiales o insumos necesarios
+    para la fabricacion de uno de sus productos mediante una formulacion inicial. Esto con el fin de ofrecer a las MIPYME's una herramienta centralizada y colaborativa, cuyo componente
     crucial sera la integracion de un Marketplace convirtiendo a este sistema o plataforma en un repositororio de conocimiento compartido
-    en el cual las Mypymes, Diseñadores y Expertos puedan publicar su recursos como patrones, moldes, formularios, o plantillas(estableciendolos como medios descargables o de paga).
+    en el cual las MIPYME's, emprendedores y expertos puedan publicar su recursos como patrones, moldes, formularios, o plantillas(estableciendolos como medios descargables o de paga).
     Integrando tambien un asistente virtual sobre esta plataforma para que funcione como un medio de sugerencias para mejorar la estadarizacion de los procesos realizados
-    por estas MyPymes.
+    por estas MIPYME's.
 
     El impacto social de esta plataforma digital en Nicaragua sería significativo y multidimensional, afectando a la economía, el empleo y el desarrollo de las comunidades.
 
