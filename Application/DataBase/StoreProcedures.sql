@@ -175,3 +175,23 @@ BEGIN
 END
 GO
 
+
+----CONSULTA A BASE DE DATOS PARA MOSTRAR LOS RECURSOS QUE TIENE UN USUARIO EN SU MARKETPLACE---
+Select 
+IdRecurso,
+TituloRecurso[Titulo],
+DescripcionRecurso[Descripcion],
+Precio,RutaArchivoRecurso,
+NombreArchivoRecurso,
+NombreTipoRecurso[TipoRecurso], 
+NombreSector[SectorEconomico],
+DescripcionEstadoRecurso[Estado],
+FechaPublicacion
+    from RECURSOS.UsuarioRecursosMarketplace Urm
+
+    inner join RECURSOS.RecursosMarketplace Rm on Urm.Id_recurso=rm.IdRecurso
+    inner join CATALOGOS.EstadoRecurso ER on Rm.Id_estadoRecurso=ER.IdEstadoRecurso
+    inner join CATALOGOS.TipoRecurso Tr on Rm.Id_tipoRecurso=tr.IdTipoRecurso
+    inner join CATALOGOS.TipoSectorEconomico tse on Rm.Id_tipoSectorEconomico=tse.IdTipoSectorEconomico
+    where Urm.Id_usuario=1
+    order by FechaPublicacion desc

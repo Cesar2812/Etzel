@@ -11,12 +11,9 @@ namespace LayerDataAccess.DAUsuario;
 public class Listar : IListar
 {
     private readonly Conection _conection;
-    private readonly ILogger<DMUsuario> _logger;
-
-
     private SqlConnection conexion;
 
-    public Listar(IOptions<Conection> options, ILogger<DMUsuario> logger)
+    public Listar(IOptions<Conection> options)
     {
         _conection = options.Value;
     }
@@ -37,7 +34,7 @@ public class Listar : IListar
             sb.AppendLine("inner join SEGURIDAD.RolUsuario R on U.idtipoUsuario=R.IdRolUsuario");
 
             await conexion.OpenAsync();
-            SqlCommand cmd = new SqlCommand("sp_listaCliente", conexion);
+            SqlCommand cmd = new SqlCommand(sb.ToString(), conexion);
             cmd.CommandType = CommandType.Text;
 
             using (var dr = await cmd.ExecuteReaderAsync())

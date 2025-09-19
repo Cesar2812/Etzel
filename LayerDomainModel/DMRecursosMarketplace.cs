@@ -30,4 +30,11 @@ public class DMRecursosMarketplace
 
     public string? PrecioTexto { get; set; }
 
+
+
+    //para mostrar los recursos o imagenes en la vista
+    public string? Base64 { get; set; }
+
+    public string? Extension { get; set; }
+
 }
