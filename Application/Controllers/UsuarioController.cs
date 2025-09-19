@@ -120,7 +120,7 @@ public class UsuarioController : Controller
             bool guardado = await _guuadarFoto.GuardarFoto(user);
             if (guardado)
             {
-                TempData["SuccessMessage"] = "Cuenta creada exitosamente con foto.";
+                TempData["SuccessMessage"] = "Cuenta creada exitosamente";
                 return View();
             }
             TempData["AbortMessage"] = "Cuenta creada, pero no se guardó la foto.";
@@ -199,5 +199,4 @@ public class UsuarioController : Controller
         }
     }
     #endregion
-
 }

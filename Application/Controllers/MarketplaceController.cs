@@ -18,9 +18,11 @@ public class MarketplaceController : Controller
     private readonly UCAgregarRecurso _ucagregarRecurso;
     private readonly UCSubirArchivoServidor _ucsubirArchivoServer;
     private readonly UCGuardarArchivoEnBD _uCGuardarArchivoEnBD;
-
+    private readonly UCListarRecursosMarketplaceUsuario _ucListarRecursosUsuario;
+    private readonly UCConvertirRecurso _ucConvertirRecurso;
     public MarketplaceController(UCListarTipoRecurso listarTipoRecurso,UCListarEstadoRecurso listarEstadoRecurso, UCListarSectorEconomico listarSectorEconomico,
-        UCAgregarRecurso agregarRecurso, UCSubirArchivoServidor ucSubirArchivo, UCGuardarArchivoEnBD uCGuardarArchivoEnBD)
+        UCAgregarRecurso agregarRecurso, UCSubirArchivoServidor ucSubirArchivo, UCGuardarArchivoEnBD uCGuardarArchivoEnBD, UCListarRecursosMarketplaceUsuario ucListarRecursosUsuario,
+        UCConvertirRecurso ucConvertirRecurso)
     {
         _listarTipoRecusro = listarTipoRecurso;
         _listarEstadoRecurso = listarEstadoRecurso; 
@@ -28,10 +30,12 @@ public class MarketplaceController : Controller
         _ucagregarRecurso = agregarRecurso; 
         _ucsubirArchivoServer = ucSubirArchivo;
         _uCGuardarArchivoEnBD=uCGuardarArchivoEnBD;
+        _ucListarRecursosUsuario=ucListarRecursosUsuario;
+        _ucConvertirRecurso = ucConvertirRecurso;
     }
 
 
-    //vista para gestioanr el marketplace
+    //vista para visualizar el marketplace
     [Authorize(Roles = "MIPYME")]
     public IActionResult InicioMarketplace()//principal al entrar al marketplace
     {
@@ -75,7 +79,7 @@ public class MarketplaceController : Controller
 
         if (resultado > 0)
         {
-            objRecursoMarketplace.IdRecurso = resultado;//captura el id del usuario insertado en la tabla
+            objRecursoMarketplace.IdRecurso = resultado;//captura el id del recurso insertado en la tabla
 
             string rutaArchivo = await _ucsubirArchivoServer.SubirRecurso(objRecursoMarketplace);
             objRecursoMarketplace.NombreArchivoRecurso = objRecursoMarketplace.archivo.FileName;
@@ -100,21 +104,35 @@ public class MarketplaceController : Controller
     }
 
 
+    [HttpPost]
+    public async Task<IActionResult> MostrarRecursosMarketplaceUsuario()
+    {
+        var identity = (ClaimsIdentity)User.Identity;
+        var claim = identity.FindFirst(ClaimTypes.NameIdentifier);
+        int idUsuario = int.Parse(claim.Value);
 
+        var lista= await _ucListarRecursosUsuario.ListarRecursoMarketplaceUsuario(idUsuario);
 
-    //[HttpPost]
-    //public async Task<IActionResult> MostrarRecursosMarketplace(int Id_tipoSectorEconomico,int Id_tipoRecurso )
-    //{
+        bool conversion;
 
-        
-    //}
+        var listaRecurso=lista.Select(r=>new DMUsuarioRecursosMarketplace()
+        {
+            objRecursoMarketplace=new DMRecursosMarketplace()
+            {
+                IdRecurso=r.objRecursoMarketplace.IdRecurso,
+                TituloRecurso=r.objRecursoMarketplace.TituloRecurso,
+                DescripcionRecurso=r.objRecursoMarketplace.DescripcionRecurso,
+                Precio=r.objRecursoMarketplace.Precio,
+                RutaArchivoRecurso=r.objRecursoMarketplace.RutaArchivoRecurso,
+                Base64=_ucConvertirRecurso.convertirBase64(Path.Combine(r.objRecursoMarketplace.RutaArchivoRecurso,r.objRecursoMarketplace.NombreArchivoRecurso),out conversion),
+                Extension=Path.GetExtension(r.objRecursoMarketplace.NombreArchivoRecurso),
+                objTipoRecurso=r.objRecursoMarketplace.objTipoRecurso,
+                objTipoSectorEconomico=r.objRecursoMarketplace.objTipoSectorEconomico,
+                objEstadoRecurso=r.objRecursoMarketplace.objEstadoRecurso,
+            },
+            FechaPublicacion=r.FechaPublicacion
 
-
-
-
-
-
-
-
-
+        }).ToList();
+        return Json(new { data = lista });
+    }
 }

@@ -10,17 +10,16 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-
-
-//agregando servicios de Autenticacion y esquema de autenticacion y agregando opciones de cookie
+//agregando servicios de Autenticacion, esquema de autenticacion y opciones de cookie
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(option =>
     {
         option.LoginPath = "/LoginAcceso/Index";//el path de logueo osea pagina de acceso
-        option.ExpireTimeSpan = TimeSpan.FromMinutes(60);//tiempo de expiracion de la Cookie osea se muere en 20 minutos
+        option.ExpireTimeSpan = TimeSpan.FromMinutes(60);//tiempo de expiracion de la Cookie osea se muere en 60 minutos
 
     });
 
@@ -38,6 +37,7 @@ builder.Services.Configure<Ruta>(builder.Configuration.GetSection("Configuracion
 builder.Services.Configure<RutaArchivos>(builder.Configuration.GetSection("ConfigServer"));
 
 //Inyeccion de depencias inyectando las clases que van a implementar una interface del caso de uso de Usuarios
+
 //CASO DE USO DEL USUARIO
 builder.Services.AddScoped<ICrearCuenta, CrearCuenta>();
 builder.Services.AddScoped<ICambiarClave, CambiarClave>();
@@ -51,8 +51,7 @@ builder.Services.AddScoped<IListarRol, ListarRol>();
 //Lista de departamentos y municipios
 builder.Services.AddScoped<IListarDepartamento, ListarDepartamento>();
 builder.Services.AddScoped<IObtenerMunicipio, ObtenerMunicipio>();
-//lista de SectoresEconomicos 
-builder.Services.AddScoped<IListarSectorEconomico, ObtenerSectorEconomico>();
+
 //lista de Genero
 builder.Services.AddScoped<IListarGenero, ObtenerGenero>();
 
@@ -68,7 +67,6 @@ builder.Services.AddScoped<UCListarRol>();
 builder.Services.AddScoped<UCObtenerDepartamento>();
 builder.Services.AddScoped<UCObtenerMunicipio>();
 
-builder.Services.AddScoped<UCListarSectorEconomico>();
 
 builder.Services.AddScoped<UCListarGenero>();
 
@@ -76,18 +74,26 @@ builder.Services.AddScoped<UCListarGenero>();
 //CASOS DE USOS DEL MARKETPLACE
 builder.Services.AddScoped<IListarEstadoRecurso,ObtenerEstadoRecurso>();
 builder.Services.AddScoped<IListarTipoRecusro, ObtenerTipoRecurso>();
+builder.Services.AddScoped<IListarSectorEconomico, ObtenerSectorEconomico>();
 
 builder.Services.AddScoped<ICrearRecursoMarketplace, CrearRecursoMarketplace>();
 builder.Services.AddScoped<IGuardarArchivoBD, GuardarArchivoBD>();
 builder.Services.AddScoped<IGuardarRecursoServidor,GuardarArchivoDeRecurso>();
+builder.Services.AddScoped<IConversionRecurso, RecursosConversionArchivo>();
+builder.Services.AddScoped<IMostrarRecursosUsuario, ListarRecursosMarketplaceUsuario>();
 
 
 builder.Services.AddScoped<UCListarEstadoRecurso>();
 builder.Services.AddScoped<UCListarTipoRecurso>();
+builder.Services.AddScoped<UCListarSectorEconomico>();
+
 
 builder.Services.AddScoped<UCAgregarRecurso>();
 builder.Services.AddScoped<UCGuardarArchivoEnBD>();
 builder.Services.AddScoped<UCSubirArchivoServidor>();
+builder.Services.AddScoped<UCConvertirRecurso>();
+builder.Services.AddScoped<UCListarRecursosMarketplaceUsuario>();
+
 
 
 
