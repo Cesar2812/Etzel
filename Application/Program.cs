@@ -81,6 +81,7 @@ builder.Services.AddScoped<IGuardarArchivoBD, GuardarArchivoBD>();
 builder.Services.AddScoped<IGuardarRecursoServidor,GuardarArchivoDeRecurso>();
 builder.Services.AddScoped<IConversionRecurso, RecursosConversionArchivo>();
 builder.Services.AddScoped<IMostrarRecursosUsuario, ListarRecursosMarketplaceUsuario>();
+builder.Services.AddScoped<IMostrarMarketplaceGeneral, MostrarMarketplaceGeneral>();
 
 
 builder.Services.AddScoped<UCListarEstadoRecurso>();
@@ -93,6 +94,7 @@ builder.Services.AddScoped<UCGuardarArchivoEnBD>();
 builder.Services.AddScoped<UCSubirArchivoServidor>();
 builder.Services.AddScoped<UCConvertirRecurso>();
 builder.Services.AddScoped<UCListarRecursosMarketplaceUsuario>();
+builder.Services.AddScoped<UCMostrarRecursosMarketplace>();
 
 
 

@@ -110,13 +110,13 @@ public class UsuarioController : Controller
         }
         if (resultado > 0)
         {
-                user.IdUsuario = resultado;//captura el id del usuario insertado en la tabla
+            user.IdUsuario = resultado;//captura el id del usuario insertado en la tabla
 
-                string rutafoto=await _subirFotoServidor.AgregarFotoEnServidor(user);
-                user.NombreFoto=user.archivo.FileName;
-                user.RutaFoto=rutafoto;
+            string rutafoto = await _subirFotoServidor.AgregarFotoEnServidor(user);
+            user.NombreFoto = user.archivo.FileName;
+            user.RutaFoto = rutafoto;
 
-                //guardar foto en base de datos
+            //guardar foto en base de datos
             bool guardado = await _guuadarFoto.GuardarFoto(user);
             if (guardado)
             {
