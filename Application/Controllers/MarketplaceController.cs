@@ -20,9 +20,10 @@ public class MarketplaceController : Controller
     private readonly UCGuardarArchivoEnBD _uCGuardarArchivoEnBD;
     private readonly UCListarRecursosMarketplaceUsuario _ucListarRecursosUsuario;
     private readonly UCConvertirRecurso _ucConvertirRecurso;
+    private readonly UCMostrarRecursosMarketplace _ucMostrarRecurso;
     public MarketplaceController(UCListarTipoRecurso listarTipoRecurso,UCListarEstadoRecurso listarEstadoRecurso, UCListarSectorEconomico listarSectorEconomico,
         UCAgregarRecurso agregarRecurso, UCSubirArchivoServidor ucSubirArchivo, UCGuardarArchivoEnBD uCGuardarArchivoEnBD, UCListarRecursosMarketplaceUsuario ucListarRecursosUsuario,
-        UCConvertirRecurso ucConvertirRecurso)
+        UCConvertirRecurso ucConvertirRecurso, UCMostrarRecursosMarketplace ucMostrarRecurso)
     {
         _listarTipoRecusro = listarTipoRecurso;
         _listarEstadoRecurso = listarEstadoRecurso; 
@@ -32,15 +33,25 @@ public class MarketplaceController : Controller
         _uCGuardarArchivoEnBD=uCGuardarArchivoEnBD;
         _ucListarRecursosUsuario=ucListarRecursosUsuario;
         _ucConvertirRecurso = ucConvertirRecurso;
+        _ucMostrarRecurso = ucMostrarRecurso;
     }
 
 
     //vista para visualizar el marketplace
     [Authorize(Roles = "MIPYME")]
-    public IActionResult InicioMarketplace()//principal al entrar al marketplace
+    public IActionResult InicioMarketplaceMiPymes()
     {
         return View();
     }
+
+
+    [Authorize(Roles = "Artista,Profesional Independiente,Artesano")]
+    public IActionResult InicioMarketplacePerfilPorUsuario()
+    {
+        return View();
+    }
+
+
 
     #region RecursosDeMuestraEnFomulario
     [HttpGet]
@@ -68,6 +79,7 @@ public class MarketplaceController : Controller
     #endregion
 
 
+    #region Metodos
     [HttpPost]
     public async Task<IActionResult> AgregarRecursoPorUsuarioMarketplace(DMRecursosMarketplace objRecursoMarketplace)
     {
@@ -103,9 +115,9 @@ public class MarketplaceController : Controller
 
     }
 
-
+    //por usuario especifico 
     [HttpPost]
-    public async Task<IActionResult> MostrarRecursosMarketplaceUsuario()
+    public async Task<IActionResult> MostrarRecursosMarketplaceUsuario(int idSectorEconomico,int idTipoRecurso)
     {
         var identity = (ClaimsIdentity)User.Identity;
         var claim = identity.FindFirst(ClaimTypes.NameIdentifier);
@@ -133,6 +145,38 @@ public class MarketplaceController : Controller
             FechaPublicacion=r.FechaPublicacion
 
         }).ToList();
-        return Json(new { data = lista });
+        return Json(new {data = listaRecurso });
     }
+
+
+    //de forma General a las MiPymes
+    [HttpPost]
+    public async Task<IActionResult> MostrarRecursosMarketplace(int idSectorEconomico, int idTipoRecurso)
+    {
+        var lista = await _ucMostrarRecurso.ListarRecursoMarketplace();
+
+        bool conversion;
+
+        var listaRecurso = lista.Select(r => new DMUsuarioRecursosMarketplace()
+        {
+            objRecursoMarketplace = new DMRecursosMarketplace()
+            {
+                IdRecurso = r.objRecursoMarketplace.IdRecurso,
+                TituloRecurso = r.objRecursoMarketplace.TituloRecurso,
+                DescripcionRecurso = r.objRecursoMarketplace.DescripcionRecurso,
+                Precio = r.objRecursoMarketplace.Precio,
+                RutaArchivoRecurso = r.objRecursoMarketplace.RutaArchivoRecurso,
+                Base64 = _ucConvertirRecurso.convertirBase64(Path.Combine(r.objRecursoMarketplace.RutaArchivoRecurso, r.objRecursoMarketplace.NombreArchivoRecurso), out conversion),
+                Extension = Path.GetExtension(r.objRecursoMarketplace.NombreArchivoRecurso),
+                objTipoRecurso = r.objRecursoMarketplace.objTipoRecurso,
+                objTipoSectorEconomico = r.objRecursoMarketplace.objTipoSectorEconomico,
+                objEstadoRecurso = r.objRecursoMarketplace.objEstadoRecurso,
+            },
+            objUsuario=r.objUsuario,
+            FechaPublicacion = r.FechaPublicacion
+
+        }).ToList();
+        return Json(new { data = listaRecurso });
+    }
+    #endregion
 }

@@ -25,6 +25,7 @@ namespace Application.Controllers
         #endregion
 
 
+        #region Metodos Para Iniciar y Cerrar Sesion
         //metodo de inicio de sesion
         [HttpPost]
         public async Task<IActionResult> InicioDeSesion(string correo,string clave)
@@ -61,7 +62,7 @@ namespace Application.Controllers
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     //creando la cookie al iniciar sesion dentro de la app
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("InicioMarketplacePerfilPorUsuario", "Marketplace");
 
                 }
             }
@@ -71,7 +72,8 @@ namespace Application.Controllers
         {
             //elimando cookie creada al cerrar sesion
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Acceso");
+            return RedirectToAction("InicioDeSesion", "Login");
         }
+        #endregion
     }
 }

@@ -195,3 +195,45 @@ FechaPublicacion
     inner join CATALOGOS.TipoSectorEconomico tse on Rm.Id_tipoSectorEconomico=tse.IdTipoSectorEconomico
     where Urm.Id_usuario=1
     order by FechaPublicacion desc
+
+
+
+
+----QUERY PARA MOSTRAR LA INFORMACION DEL MARKETPLACE A LAS MYPIMES
+
+SELECT DISTINCT
+    rm.IdRecurso,
+    rm.TituloRecurso,
+    urm.FechaPublicacion[FechaPublicacion],
+    rm.Precio,
+    rm.RutaArchivoRecurso,
+    rm.NombreArchivoRecurso,
+    CAST(rm.DescripcionRecurso AS NVARCHAR(MAX)) AS DescripcionRecurso,
+    tr.NombreTipoRecurso,
+    ts.NombreSector,
+    er.DescripcionEstadoRecurso,
+    COALESCE(
+        CONCAT(per.NombrePersona, ' ', pn.ApellidoPersonaNatural),
+        CONCAT(per.NombrePersona, ' ', pj.RazonSocial)
+    ) AS NombrePublicador
+FROM RECURSOS.UsuarioRecursosMarketplace urm
+INNER JOIN RECURSOS.RecursosMarketplace rm 
+    ON urm.Id_recurso = rm.IdRecurso
+INNER JOIN CATALOGOS.TipoRecurso tr 
+    ON rm.Id_tipoRecurso = tr.IdTipoRecurso
+INNER JOIN CATALOGOS.TipoSectorEconomico ts 
+    ON rm.Id_tipoSectorEconomico = ts.IdTipoSectorEconomico
+INNER JOIN CATALOGOS.EstadoRecurso er 
+    ON rm.Id_estadoRecurso = er.IdEstadoRecurso
+INNER JOIN SEGURIDAD.Usuario u 
+    ON urm.Id_usuario = u.IdUsuario
+INNER JOIN CATALOGOS.Persona per 
+    ON u.IdPersona = per.IdPersona
+LEFT JOIN CATALOGOS.PersonaNatural pn 
+    ON per.IdPersona = pn.Id_persona
+LEFT JOIN CATALOGOS.PersonaJuridica pj 
+    ON per.IdPersona = pj.Id_persona;
+GO
+
+
+select * from SEGURIDAD.RolUsuario
