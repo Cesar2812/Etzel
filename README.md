@@ -77,7 +77,7 @@
         siguiente manera $env:Configuracion__RutaServidor= ruta de la carpeta dentro del directorio
 
 
-        8) Configurar  el servidor Krestel (por defecto en Visual Studio 2022)para ejecucion del proyecto en entorno local de pruebas:
+        8) Configurar  el servidor Kestrel (por defecto en Visual Studio 2022)para ejecucion del proyecto en entorno local de pruebas:
             En el menú de ejecución, seleccionar https dentro de VisualStudio.
             Servidor de pruebas: Kestrel desde Visual Studio.
 
