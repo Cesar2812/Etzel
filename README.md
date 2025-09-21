@@ -77,9 +77,9 @@
         siguiente manera $env:Configuracion__RutaServidor= ruta de la carpeta dentro del directorio
 
 
-        8) Configurar IIS Express (por defecto en Visual Studio 2022)para ejecucion del proyecto en entorno local de pruebas:
-            En el menú de ejecución, seleccionar IIS Express y el proyecto principal.
-            Servidor de pruebas: IIS Express desde Visual Studio.
+        8) Configurar  el servidor Krestel (por defecto en Visual Studio 2022)para ejecucion del proyecto en entorno local de pruebas:
+            En el menú de ejecución, seleccionar https dentro de VisualStudio.
+            Servidor de pruebas: Kestrel desde Visual Studio.
 
 
    ### Solución de Problemas Comunes
