@@ -1,8 +1,143 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-background">
+        <div class="hero-image-placeholder">
+            <div class="hero-overlay"></div>
+        </div>
+    </div>
+    
+    <div class="hero-content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h1 class="hero-title">
+                        Colaborar para crecer,<br>
+                        innovar para trascender
+                    </h1>
+                    <p class="hero-subtitle">
+                        Conéctese con artesanos y pequeñas empresas de las industrias textil, de la madera, del cuero y alimentaria.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-primary btn-join-community" onclick="abrirModal()">
+                            Unirse a la comunidad
+                        </a>
+                        <a href="#quienes-somos" class="btn btn-outline-light btn-see-more">
+                            Ver más
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sección Quienes Somos -->
+<section id="quienes-somos" class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2 class="section-title">¿Quiénes somos?</h2>
+                <p class="section-text">
+                    Etzél es una plataforma digital diseñada para conectar y fortalecer a las micro, pequeñas y medianas empresas (MIPYMEs) 
+                    en sectores como textiles, muebles, cueros y alimentos. Nuestro objetivo es estandarizar y optimizar los procesos 
+                    productivos para mejorar la eficiencia y calidad de sus productos.
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <div class="feature-image-placeholder"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sección Proyectos -->
+<section id="proyectos" class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 class="section-title">Nuestros Proyectos</h2>
+                <p class="section-text">Descubre las iniciativas que estamos desarrollando</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="project-card">
+                    <div class="project-image-placeholder"></div>
+                    <div class="project-content">
+                        <h4>Marketplace</h4>
+                        <p>Plataforma colaborativa para compartir recursos y conocimiento</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="project-card">
+                    <div class="project-image-placeholder"></div>
+                    <div class="project-content">
+                        <h4>Calculadora de Costos</h4>
+                        <p>Herramienta para optimizar la gestión de costos productivos</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="project-card">
+                    <div class="project-image-placeholder"></div>
+                    <div class="project-content">
+                        <h4>Asistente Virtual</h4>
+                        <p>IA para sugerencias de mejora en procesos productivos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sección Contacto -->
+<section id="contacto" class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="section-title">Contacto</h2>
+                <p class="section-text">¿Tienes alguna pregunta o quieres formar parte de nuestra comunidad?</p>
+                <a href="#" class="btn btn-primary btn-lg">Contáctanos</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal de Login Flotante -->
+<div class="login-modal" id="loginModal" style="display:none;">
+    <div class="login-content">
+        <button type="button" class="close-btn" onclick="cerrarModal()">×</button>
+
+        <img src="~/images/logos/Logo.png" alt="Etzel Logo" style="height:70px; width:auto;" class="login-logo" />
+        <h2>Connect with artisans and grow your business</h2>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="error-message">@ViewBag.Error</div>
+        }
+
+        <form asp-controller="LoginAcceso" asp-action="InicioDeSesion" method="post">
+            <input type="email" name="correo" placeholder="Email address" class="login-input" required />
+            <input type="password" name="clave" placeholder="Password" class="login-input" required />
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+
+        <a href="#" class="create-account-link">Create Account</a>
+    </div>
 </div>
+
+<script>
+    function abrirModal() {
+        document.getElementById("loginModal").style.display = "flex";
+    }
+
+    function cerrarModal() {
+        document.getElementById("loginModal").style.display = "none";
+    }
+</script>
+

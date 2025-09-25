@@ -1,0 +1,20 @@
+﻿@model List<Application.Models.Product>
+
+@{
+    Layout = "_ProfileLayout";
+    ViewData["Title"] = "My Products";
+}
+
+<h2>My Products</h2>
+
+<div class="product-list">
+    @foreach (var p in Model)
+    {
+        <div class="product-card">
+            <img src="@p.ImageUrl" alt="@p.Name" />
+            <h3>@p.Name</h3>
+            <p>@p.Description</p>
+            <span>@p.Price.ToString("C")</span>
+        </div>
+    }
+</div>

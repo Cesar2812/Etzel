@@ -33,7 +33,7 @@ public class Listar : IListar
             sb.AppendLine("on U.idpersona=P.IdPersona");
             sb.AppendLine("inner join SEGURIDAD.RolUsuario R on U.idtipoUsuario=R.IdRolUsuario");
 
-            await conexion.OpenAsync();
+            /await conexion.OpenAsync();
             SqlCommand cmd = new SqlCommand(sb.ToString(), conexion);
             cmd.CommandType = CommandType.Text;
 
