@@ -79,5 +79,4 @@ public class MostrarMarketplaceGeneral:IMostrarMarketplaceGeneral
         }
         return lista;
     }
-
 }
