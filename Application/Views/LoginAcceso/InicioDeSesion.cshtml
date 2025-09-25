@@ -2,6 +2,235 @@
     ViewData["Title"] = "InicioDeSesion";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="login-modal">
+  <div class="login-content">
+    <img src="~/images/logos/Logo.png" alt="Etzél" class="login-logo" />
+    <h2 class="login-title">Connect with artisans and grow your business</h2>
 
-<h1>InicioDeSesion</h1>
+    @if (ViewBag.Error != null)
+    {
+        <div class="error-message">@ViewBag.Error</div>
+    }
 
+    <!-- Tabs: OJO type="button" para NO enviar formularios -->
+    <div class="tab-container" role="tablist">
+      <button type="button" id="btnTabLogin" class="tab-btn active" aria-controls="loginForm">Login</button>
+      <button type="button" id="btnTabCreate" class="tab-btn" aria-controls="createAccountForm">Create Account</button>
+    </div>
+
+    <!-- Login -->
+    <div id="loginForm" role="tabpanel">
+      <form id="formLogin" asp-controller="LoginAcceso" asp-action="InicioDeSesion" method="post">
+        <div class="input-group">
+          <i class="fa fa-envelope"></i>
+          <input type="email" name="correo" placeholder="Email address" class="login-input" required />
+        </div>
+        <div class="input-group">
+          <i class="fa fa-lock"></i>
+          <input type="password" name="clave" placeholder="Password" class="login-input" required />
+        </div>
+        <button type="submit" class="login-btn">Login</button>
+      </form>
+
+      <div class="login-links">
+        <a href="javascript:void(0)" class="create-account-link">Create Account</a>
+        <span class="divider">•</span>
+        <a href="#" class="forgot-password">Forgot Password?</a>
+      </div>
+    </div>
+
+    <!-- Create Account -->
+    <!-- CREATE ACCOUNT: Multi-step (reemplazar tu bloque actual por este) -->
+<div id="createAccountForm" style="display:none;">
+  <form id="formCreate" asp-controller="Usuario" asp-action="CrearCuenta" method="post" enctype="multipart/form-data" novalidate>
+
+    <!-- STEP 1 -->
+    <div id="step1" class="form-step active">
+      <label for="rol">Choose your role:</label>
+      <select id="rol" name="rol" class="login-input">
+        <option value="">-- Select Role --</option>
+        <option value="MIPYME">MIPYME</option>
+        <option value="Expert">Expert</option>
+      </select>
+
+      <label for="photo">Profile Photo:</label>
+      <input type="file" id="photo" name="ProfilePhoto" />
+
+      <input type="email" id="correo" name="correo" placeholder="Enter your email" class="login-input" />
+      <input type="password" id="clave" name="clave" placeholder="Enter your password" class="login-input" />
+
+      <div style="display:flex; gap:8px; margin-top:1rem;">
+        <button type="button" id="nextBtn" class="next-btn">Next</button>
+      </div>
+      <div id="step1-msg" class="small-msg" aria-live="polite" style="margin-top:6px; color:#b23;"> </div>
+    </div>
+
+    <!-- STEP 2: MIPYME -->
+    <div id="step2-mipyme" class="form-step">
+      <input type="text" name="NombreEmpresa" placeholder="Nombre de la empresa" class="login-input" />
+      <input type="text" name="RUC" placeholder="RUC" class="login-input" />
+      <input type="text" name="RazonSocial" placeholder="Razón Social" class="login-input" />
+      <input type="text" name="DeptoMipyme" placeholder="Departamento" class="login-input" />
+      <input type="text" name="MunicipioMipyme" placeholder="Municipio" class="login-input" />
+
+      <div style="display:flex; gap:8px; margin-top:1rem;">
+        <button type="button" class="back-btn" data-target="step1">Back</button>
+        <button type="submit" class="create-btn">Create Account</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: EXPERT -->
+    <div id="step2-expert" class="form-step">
+      <input type="text" name="Cedula" placeholder="Cédula" class="login-input" />
+      <input type="text" name="Nombre" placeholder="Nombre" class="login-input" />
+      <input type="text" name="Apellido" placeholder="Apellido" class="login-input" />
+
+      <div class="gender-options" style="display:flex; gap:12px; justify-content:center; margin:8px 0;">
+        <label><input type="radio" name="Genero" value="M" /> Masculino</label>
+        <label><input type="radio" name="Genero" value="F" /> Femenino</label>
+        <label><input type="radio" name="Genero" value="O" /> Otro</label>
+      </div>
+
+      <input type="text" name="DeptoExpert" placeholder="Departamento" class="login-input" />
+      <input type="text" name="MunicipioExpert" placeholder="Municipio" class="login-input" />
+
+      <div style="display:flex; gap:8px; margin-top:1rem;">
+        <button type="button" class="back-btn" data-target="step1">Back</button>
+        <button type="submit" class="create-btn">Create Account</button>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<style>
+  .form-step { display:none; }
+  .form-step.active { display:block; }
+  .small-msg { font-size:0.9rem; min-height:18px; }
+  .gender-options label { display:inline-flex; align-items:center; gap:6px; cursor:pointer; }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    try {
+      // elementos
+      const nextBtn = document.getElementById('nextBtn');
+      const rolSelect = document.getElementById('rol');
+      const step1 = document.getElementById('step1');
+      const step2M = document.getElementById('step2-mipyme');
+      const step2E = document.getElementById('step2-expert');
+      const backBtns = document.querySelectorAll('.back-btn');
+      const step1Msg = document.getElementById('step1-msg');
+
+      // helper para mostrar paso
+      function showOnly(...els) {
+        // oculta todos los steps
+        document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+        // muestra los indicados
+        els.forEach(e => { if (e) e.classList.add('active'); });
+      }
+
+      // Next: actúa al toque
+      nextBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        // Si el select no existe, guardamos en console y mostramos el siguiente default (MIPYME)
+        const rol = rolSelect ? rolSelect.value : '';
+        if (!rol) {
+          // comportamiento no validante: mostramos un aviso breve y no bloqueamos la navegación
+          step1Msg.textContent = 'Selecciona un rol para continuar (se mostrará MIPYME por defecto si no seleccionas).';
+          setTimeout(() => { step1Msg.textContent = ''; }, 2300);
+          // MOSTRAR por defecto MIPYME (opcional) para que el Next "actúe al toque"
+          showOnly(step2M);
+          return;
+        }
+
+        // según rol mostrar step correspondiente
+        if (rol === 'MIPYME') {
+          showOnly(step2M);
+        } else if (rol === 'Expert') {
+          showOnly(step2E);
+        } else {
+          // fallback
+          showOnly(step2M);
+        }
+      });
+
+      // Back buttons
+      backBtns.forEach(b => {
+        b.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = b.getAttribute('data-target') || 'step1';
+          const tgtEl = document.getElementById(target);
+          if (tgtEl) showOnly(tgtEl);
+        });
+      });
+
+      // Para evitar cualquier envío accidental si alguien dejó type=submit:
+      document.getElementById('formCreate').addEventListener('submit', function(e){
+        // Si quieres que Submit realmente envíe, comenta la siguiente línea.
+        // e.preventDefault(); // <-- DESCOMENTA si no quieres enviar aún.
+        console.log('formCreate submit event fired');
+      });
+
+      console.log('Wizard script cargado correctamente.');
+    } catch (err) {
+      console.error('Error en wizard script:', err);
+    }
+  });
+</script>
+
+        <a href="javascript:void(0)" id="backToLogin">Back to Login</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function(){
+    // Elements
+    const btnLogin = document.getElementById('btnTabLogin');
+    const btnCreate = document.getElementById('btnTabCreate');
+    const loginForm = document.getElementById('loginForm');
+    const createForm = document.getElementById('createAccountForm');
+    const createLinks = document.querySelectorAll('.create-account-link');
+    const backToLogin = document.getElementById('backToLogin');
+
+    function showLogin() {
+      loginForm.style.display = 'block';
+      createForm.style.display = 'none';
+      btnLogin.classList.add('active');
+      btnCreate.classList.remove('active');
+      const f = loginForm.querySelector('input');
+      if(f) f.focus();
+    }
+
+    function showCreate() {
+      loginForm.style.display = 'none';
+      createForm.style.display = 'block';
+      btnCreate.classList.add('active');
+      btnLogin.classList.remove('active');
+      const f = createForm.querySelector('input, select, textarea');
+      if(f) f.focus();
+    }
+
+    // event listeners
+    btnLogin.addEventListener('click', function(e){ e.preventDefault(); showLogin(); });
+    btnCreate.addEventListener('click', function(e){ e.preventDefault(); showCreate(); });
+    backToLogin && backToLogin.addEventListener('click', function(e){ e.preventDefault(); showLogin(); });
+
+    createLinks.forEach(a => a.addEventListener('click', function(e){ e.preventDefault(); showCreate(); }));
+
+    // mostrar campos por rol (si necesitas onchange en el select)
+    window.mostrarCamposRol = function() {
+      const rol = document.getElementById('rol').value;
+      document.getElementById('camposMipyme').style.display = (rol === 'MIPYME') ? 'block' : 'none';
+      document.getElementById('camposExperto').style.display = (rol === 'Expert') ? 'block' : 'none';
+    };
+    // attach if select exists
+    const sel = document.getElementById('rol');
+    if(sel) sel.addEventListener('change', mostrarCamposRol);
+
+    // debug: imprime si el script cargó
+    console.log('Login modal script cargado');
+  })();
+</script>
