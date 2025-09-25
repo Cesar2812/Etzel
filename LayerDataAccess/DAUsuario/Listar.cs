@@ -1,7 +1,6 @@
 ﻿using LayerDomainModel;
 using LayerUseCase.Interface;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Data;
 using System.Text;
@@ -18,7 +17,7 @@ public class Listar : IListar
         _conection = options.Value;
     }
 
-    //LISTAR USUARIO PARA BUCARLO EN LA SESION
+   
     public async Task<List<DMUsuario>> ListarUsuario()
     {
         List<DMUsuario> lista = new List<DMUsuario>();
@@ -33,7 +32,7 @@ public class Listar : IListar
             sb.AppendLine("on U.idpersona=P.IdPersona");
             sb.AppendLine("inner join SEGURIDAD.RolUsuario R on U.idtipoUsuario=R.IdRolUsuario");
 
-            /await conexion.OpenAsync();
+            await conexion.OpenAsync();
             SqlCommand cmd = new SqlCommand(sb.ToString(), conexion);
             cmd.CommandType = CommandType.Text;
 

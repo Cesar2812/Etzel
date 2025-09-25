@@ -1,22 +1,24 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Application</title>
+    <title>@ViewData["Title"] - Etzel</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Application.styles.css" asp-append-version="true" />
 </head>
+
 <body>
     <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container">
+
             <!-- Logo -->
             <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
-                <img src="~/images/logos/Logo.png" alt="Etzel Logo" style="height:70px; width:auto;" class="me-2" />
-         
+                <img src="~/images/logos/Logo.png" alt="Etzel Logo" style="height: 60px; width: 160px; margin-right: 10px; class="me-2" />
             </a>
 
             <!-- Botón Hamburguesa -->
@@ -40,10 +42,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#contacto">Contacto</a>
                     </li>
+
                     <!-- Botón Acceder -->
-                <a class="btn btn-acceder ms-lg-3" asp-area="" asp-controller="LoginAcceso" asp-action="InicioDeSesion">
-    Acceder
-</a>
+                <a class="btn btn-acceder ms-lg-3" asp-area="" asp-controller="LoginAcceso" asp-action="InicioDeSesion"> Acceder </a>
 
                 </ul>
             </div>
