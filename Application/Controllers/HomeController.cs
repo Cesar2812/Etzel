@@ -13,20 +13,21 @@ namespace Application.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Conocenos()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Valores()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Servicios()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
         }
+
+        
     }
 }
