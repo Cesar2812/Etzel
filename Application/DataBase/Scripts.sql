@@ -34,33 +34,6 @@ GO
 
 ---CREACION DE TABLAS CATALOGOS----
 
-CREATE TABLE CATALOGOS.Genero(
-	IdGenero int primary key identity(1,1),
-	DescripcionGenero varchar(100)not null,
-);
-GO
-
-
-CREATE TABLE CATALOGOS.Persona(
-	IdPersona int primary key identity(1,1),
-	NombrePersona varchar(100)not null,
-	Id_municipio int references LOCALIZACION.Municipio(IdMunicipio) not null
-);
-GO
-
-
-
-CREATE TABLE CATALOGOS.PersonaNatural(
-	IdPersonaNatural int primary key identity(1,1),
-	CedulaPerosonaNatural varchar(100)not null,
-	Id_persona int references CATALOGOS.Persona(IdPersona)not null unique,
-	ApellidoPersonaNatural varchar(100)not null,
-	Id_genero int references CATALOGOS.Genero(IdGenero)not null,
-	FechaRegistro datetime default getDate()
-);
-GO
-
-
 CREATE TABLE CATALOGOS.TipoSectorEconomico(
 	IdTipoSectorEconomico int primary key identity(1,1),
 	NombreSector varchar(100) not null,
@@ -68,15 +41,6 @@ CREATE TABLE CATALOGOS.TipoSectorEconomico(
 );
 GO
 
-
-CREATE TABLE CATALOGOS.PersonaJuridica(
-	IdPersonaJuridica int primary key identity(1,1),
-	NumeroRuc varchar(100) not null,
-	Id_persona int references CATALOGOS.Persona(IdPersona)not null unique,
-	RazonSocial varchar(100) not null,
-	FechaRegistro datetime default getDate()
-);
-GO
 
 
 CREATE TABLE CATALOGOS.EstadoRecurso(
@@ -103,13 +67,11 @@ GO
 
 CREATE TABLE SEGURIDAD.Usuario(
 	IdUsuario int primary key identity(1,1),
-	RutaFoto varchar(100)null,
-	NombreFoto varchar(100)null,
-	idpersona int references CATALOGOS.Persona(IdPersona)not null unique,
 	Correo varchar(100) not null,
 	Clave_hash varchar(255)not null,
 	Restablecer bit default 1,
-	idtipoUsuario int references SEGURIDAD.RolUsuario(IdRolUsuario),
+	idTipoUsuario int references SEGURIDAD.RolUsuario(IdRolUsuario),
+	idMunicipio int references LOCALIZACION.Municipio(IdMunicipio),
 	FechaRegistro datetime default getDate()
 );
 GO

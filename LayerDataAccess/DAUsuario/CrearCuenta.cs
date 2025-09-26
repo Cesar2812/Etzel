@@ -17,6 +17,7 @@ public class CrearCuenta : ICrearCuenta
     public CrearCuenta(IOptions<Conection> options, ILogger<DMUsuario> logger)
     {
         _conection = options.Value;
+        _logger = logger;
     }
 
 
@@ -29,28 +30,15 @@ public class CrearCuenta : ICrearCuenta
         using (conexion = new SqlConnection(_conection.CadenaSQL))
         {
             SqlCommand cmd = new SqlCommand("SEGURIDAD.sp_RegistrarUsuario", conexion);
-            //persona
-            cmd.Parameters.AddWithValue("@NombrePersona", objetoUsuario.NombrePersona);
-            cmd.Parameters.AddWithValue("@IdMunicipio", objetoUsuario.Id_municipo);
             //usuario
             cmd.Parameters.AddWithValue("@Correo", objetoUsuario.Correo);
             cmd.Parameters.AddWithValue("@ClaveHash", objetoUsuario.Clave_hash);
             cmd.Parameters.AddWithValue("@IdRol", objetoUsuario.idtipoUsuario);
-
-
-
-            //persona Juridica
-            cmd.Parameters.AddWithValue("@NumeroRuc", (object)objetoUsuario.NumeroRuc ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("@RazonSocial", (object)objetoUsuario.RazonSocial ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("@idSectorEconomico", (object)objetoUsuario.idSectorEconomico ?? DBNull.Value);
-
-            //persona Natural
-            cmd.Parameters.AddWithValue("@CedulaPersonaNatural", (object)objetoUsuario.CedulaPerosonaNatural ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("@ApellidoPersonaNatural", (object)objetoUsuario.ApellidoPersonaNatural ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("@IdGenero", (object)objetoUsuario.Id_genero ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@IdMunicipio", objetoUsuario.idMunicipio);
 
             cmd.Parameters.Add("@Resultado", SqlDbType.Int).Direction = ParameterDirection.Output;
             cmd.Parameters.Add("@Mensaje", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
+
             cmd.CommandType = CommandType.StoredProcedure;
 
             try

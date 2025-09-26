@@ -10,32 +10,25 @@ namespace Application.Controllers;
 public class UsuarioController : Controller
 {
     private readonly UCcrearCuentaUser _crearCuenta;
-    private readonly UCGuardarFoto _guuadarFoto;
     private readonly UCRestablecerClave _restablecerClave;
     private readonly UCCambiarClave _cambiarClave;
     private readonly UCListarRol _listarRol;
     private readonly UCObtenerDepartamento _obtenerDepartamento;
     private readonly UCObtenerMunicipio _obtenerMunicipio;
-    private readonly UCSubirFotoServidor _subirFotoServidor;
     private readonly UCListarUsuario _listarUsuario;
-    private readonly UCListarSectorEconomico _listarSector;
-    private readonly UCListarGenero _listarGenero;
 
-    public UsuarioController(UCcrearCuentaUser crearCuenta, UCGuardarFoto guardarFoto,UCRestablecerClave restablecerClave, UCCambiarClave cambiarClave,
-    UCListarRol listarRol,UCObtenerDepartamento obtenerDepartamento, UCObtenerMunicipio obtenerMunicipio,UCSubirFotoServidor subirFoto,UCListarUsuario listUsuario,
-    UCListarSectorEconomico listarSector,UCListarGenero listarGenero) 
+    public UsuarioController(UCcrearCuentaUser crearCuenta,UCRestablecerClave restablecerClave, UCCambiarClave cambiarClave,
+    UCListarRol listarRol,UCObtenerDepartamento obtenerDepartamento, UCObtenerMunicipio obtenerMunicipio,UCListarUsuario listUsuario) 
     { 
         _crearCuenta = crearCuenta;
-        _guuadarFoto = guardarFoto;
         _restablecerClave = restablecerClave;
         _cambiarClave= cambiarClave;
         _listarRol= listarRol;
         _obtenerDepartamento=obtenerDepartamento;
         _obtenerMunicipio=obtenerMunicipio;
-        _subirFotoServidor= subirFoto;
         _listarUsuario = listUsuario;
         _cambiarClave = cambiarClave;
-        _listarGenero= listarGenero;
+        
     }
 
     #region Vistas
@@ -70,7 +63,7 @@ public class UsuarioController : Controller
 
 
     [HttpPost]
-    public async Task<IActionResult> ObtenerMunicipio(string idDepartamento)
+    public async Task<IActionResult> ObtenerMunicipio(int idDepartamento)
     {
         List<DMMunicipio> lista = await _obtenerMunicipio.ObtenerMunicipi(idDepartamento);
         return Json(new { listaMunicipo = lista });
@@ -78,18 +71,10 @@ public class UsuarioController : Controller
 
 
     [HttpGet]
-    public async Task<IActionResult> ListarSectorEconomico()
+    public async Task<IActionResult> ListarRol()
     {
-        List<DMTipoSectorEconomico> lista = await _listarSector.ListarSectorEconomico();
-        return Json(new { listaDepartamento = lista });
-    }
-
-
-    [HttpGet]
-    public async Task<IActionResult> ListarGenero()
-    {
-        List<DMGenero> lista= await _listarGenero.ListarGenero();
-        return Json(new { listaGenero = lista });
+        List<DMRol> lista=await _listarRol.ListarTipoRol();
+        return Json(new { listaRol= lista });
     }
     #endregion
 
@@ -98,38 +83,17 @@ public class UsuarioController : Controller
     #region MetodosHttp
     //metodo de crear cuenta de Usuario
     [HttpPost]
-    public async Task<IActionResult> CrearCuenta(DMUsuario user)
+    public async Task<IActionResult> CrearCuenta([FromBody] DMUsuario user)
     {
         int resultado;
         resultado = await _crearCuenta.CrearCuenta(user);
-
-        if (user.archivo == null || user.archivo.Length == 0)
-        {
-            ViewBag.ErrorDefoto = "La Foto es Requerida.";
-            return View();
-        }
         if (resultado > 0)
         {
-            user.IdUsuario = resultado;//captura el id del usuario insertado en la tabla
-
-            string rutafoto = await _subirFotoServidor.AgregarFotoEnServidor(user);
-            user.NombreFoto = user.archivo.FileName;
-            user.RutaFoto = rutafoto;
-
-            //guardar foto en base de datos
-            bool guardado = await _guuadarFoto.GuardarFoto(user);
-            if (guardado)
-            {
-                TempData["SuccessMessage"] = "Cuenta creada exitosamente";
-                return View();
-            }
-            TempData["AbortMessage"] = "Cuenta creada, pero no se guardó la foto.";
-            return View();
+            return Json(new { success = true, message = "Cuenta creada exitosamente" });
         }
         else
         {
-            TempData["AbortMessage"] = "No se pudo crear la cuenta.";
-            return View();
+            return Json(new { success = false, message = "No se pudo crear la cuenta." });
         }
     }
 

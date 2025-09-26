@@ -1,7 +1,9 @@
-﻿@{
-    ViewData["Title"] = "Inicio De Sesion";
+﻿
+@{
+    ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <style>
 
     .logo-container {
@@ -37,15 +39,15 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-5">
-                        <div class="card shadow-lg border-0 rounded-lg mt-5">
-                            <div class="card-header text-center">
+                        <div class="card shadow-lg border-0 rounded-lg mt-5" style="background-color: rgb(241, 241, 241);">
+                            <div class="card-header text-center" style="background-color: rgb(241, 241, 241);">
                                 <div class="logo-container">
                                     <img src="~/images/Logotipo.png" alt="Logo" class="mb-3 mt-3" style="max-width: 40%; height: auto;" />
                                 </div>
                             </div>
 
                             <div class="card-body">
-                                <form action="@Url.Action("Index","Acceso")" method="post">
+                                <form asp-controller="LoginAcceso" asp-action="InicioDeSesion" method="post">
                                     <div class="form-floating mb-3">
                                         <input type="email" class="form-control" name="correo" placeholder="name@example.com" autocomplete="off">
                                         <label for="inputEmail">Correo</label>
@@ -61,17 +63,23 @@
                                         <label class="form-check-label" for="inputRememberPassword">Recordar Contraseña</label>
                                     </div>
 
+                                    @if (ViewBag.Error != null)
+                                    {
+                                        <div class="form-group">
+                                            <div class="alert alert-danger" role="alert">
+                                                @ViewBag.Error
+                                            </div>
+                                        </div>
+                                    }
+
                                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                         <a class="small" href="@Url.Action("RestablecerClave", "Acceso")">¿Has Olvidado Tu Contraseña?</a>
-                                        @*@<button type="submit" class="btn btn-primary">Iniciar Sesion</button>*@
                                         <button class="btn btn-login" type="submit">Iniciar Sesion</button>
                                     </div>
                                 </form>
                             </div>
 
-                            <div class="card-footer text-center py-4">
-                                <div class="small"><a href="register.html"></a></div>
-                            </div>
+
 
                         </div>
                     </div>
@@ -80,3 +88,4 @@
         </main>
     </div>
 </div>
+

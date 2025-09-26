@@ -12,7 +12,7 @@ public class UCObtenerMunicipio
         _obtenerMunicipio = obtenerMunicipio;
     }
 
-    public async Task<List<DMMunicipio>> ObtenerMunicipi(string idDepartamento)
+    public async Task<List<DMMunicipio>> ObtenerMunicipi(int idDepartamento)
     {
         var listaMunicipio = await _obtenerMunicipio.ObtenerMunicipi(idDepartamento);
         return listaMunicipio;

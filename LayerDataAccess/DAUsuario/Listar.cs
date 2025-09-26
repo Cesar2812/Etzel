@@ -27,10 +27,8 @@ public class Listar : IListar
         {
 
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("select P.NombrePersona,R.DescripcionRol,U.Correo,U.Clave_hash,U.Restablecer,U.NombreFoto,U.RutaFoto");
+            sb.AppendLine("select U.IdUsuario, R.DescripcionRol,U.Correo,U.Clave_hash,U.Restablecer");
             sb.AppendLine("from SEGURIDAD.Usuario U");
-            sb.AppendLine("inner Join CATALOGOS.Persona P");
-            sb.AppendLine("on U.idpersona=P.IdPersona");
             sb.AppendLine("inner join SEGURIDAD.RolUsuario R on U.idtipoUsuario=R.IdRolUsuario");
 
             await conexion.OpenAsync();
@@ -43,16 +41,14 @@ public class Listar : IListar
                 {
                     lista.Add(new DMUsuario()
                     {
-                        NombrePersona = dr["NombrePersona"].ToString()!,
-                        objRol = new DMRol()
-                        {
-                            DescripcionRol = dr["DescripcionRol"].ToString()!,
-                        },
+                        IdUsuario=Convert.ToInt32(dr["IdUsuario"]),
                         Correo = dr["Correo"].ToString()!,//campo de busqueda al inicar sesion
                         Clave_hash = dr["Clave_hash"].ToString(),//campo de busqueda al inicar sesion
                         Restablecer = Convert.ToBoolean(dr["Restablecer"]),
-                        NombreFoto = dr["NombreFoto"].ToString()!,
-                        RutaFoto = dr["RutaFoto"].ToString()!,
+                        objRol = new DMRol()
+                        {
+                            DescripcionRol = dr["DescripcionRol"].ToString()!,
+                        }
                     });
                 }
             }

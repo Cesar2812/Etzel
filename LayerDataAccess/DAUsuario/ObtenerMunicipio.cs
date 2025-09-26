@@ -19,7 +19,7 @@ namespace LayerDataAccess.DAUsuario
         }
 
         //Tarea para Listar Municipio por departamento
-        public async Task<List<DMMunicipio>> ObtenerMunicipi(string idDepartamento)
+        public async Task<List<DMMunicipio>> ObtenerMunicipi(int idDepartamento)
         {
             List<DMMunicipio> lista = new List<DMMunicipio>();
 
@@ -27,11 +27,11 @@ namespace LayerDataAccess.DAUsuario
             {
                 using (conexion = new SqlConnection(_conection.CadenaSQL))
                 {
-                    string consulta = "select * from LOCALIZACION.Municipio where Id_departamento=@iddepartamento";
+                    string consulta = "select * from LOCALIZACION.Municipio where Id_departamento=@idDepartamento";
 
                     await conexion.OpenAsync();
                     SqlCommand comando = new SqlCommand(consulta, conexion);
-                    comando.Parameters.AddWithValue("@iddepartamento", idDepartamento);
+                    comando.Parameters.AddWithValue("@idDepartamento", idDepartamento);
                     comando.CommandType = CommandType.Text;
 
                     using (var dr = await comando.ExecuteReaderAsync())
