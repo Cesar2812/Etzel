@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "Sobre Nosotros";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 0;
+    }
+
+    /* Ajuste del ancho del header*/
+    header.full-width-header {
+        width: 100vw; /* Asegura que el header ocupe todo el ancho del viewport */
+        margin-left: calc(50% - 50vw); /* Truco para centrar y eliminar los márgenes */
+    }
+
+</style>
+<link rel="stylesheet" href="~/css/site_plantilla2.css" asp-append-version="true">
+
+<header class="py-5 position-relative full-width-header" style="background-image: url('@Url.Content("~/images/Fondo.png")'); background-size: cover; background-position: center; background-attachment: fixed; height: 60vh;">
+    <div class="overlay"></div>
+    <div class="container px-5 position-relative z-index-1">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xxl-6">
+                <div class="text-center my-5">
+                    <h1 class="fw-bolder mb-3" style="color:white">¡Sobre Nosotros!</h1>
+                    <p class="lead fw-normal mb-4" style="color: #d3d3d3;">“Colaboración, Innovación, Transparencia, Inclusión, Sostenibilidad y Cultura viva”</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- About-->
+<section class="page-section" id="about">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Mision y Vision </h2>
+            <br />
+        </div>
+        <ul class="timeline">
+            <li>
+                <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/1.jpg" alt="..." /></div>
+
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        
+                        <h4 class="subheading">Mision</h4>
+                    </div>
+                    <div class="timeline-body">
+                        Conectamos y fortalecemos a profesionales independientes, artesanos y
+                        MIPYMES nicaragüenses, brindándoles herramientas que les permitan
+                        estandarizar sus procesos, expandir sus ideas a los demás mercados y proyectar
+                        nuestra cultura con innovación y sostenibilidad.<p class="text-muted"></p>
+                    </div>
+                </div>
+
+            </li>
+            <li class="timeline-inverted">
+                <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/2.jpg" alt="..." /></div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        
+                        <h4 class="subheading">Vision</h4>
+                    </div>
+                    <div class="timeline-body">
+                        Ser la red digital que une la cultura y el talento de Nicaragua con el mundo,
+                        proyectando a nuestros profesionales independientes y preservando nuestra
+                        cultura.<p class="text-muted"></p>
+                    </div>
+                </div>
+            </li>
+          
+        </ul>
+    </div>
+</section>

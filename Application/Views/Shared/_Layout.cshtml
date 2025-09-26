@@ -3,48 +3,164 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Application</title>
-    <script type="importmap"></script>
+    <title>@ViewData["Title"] - Etzél</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Application.styles.css" asp-append-version="true" />
+
+    <link href="~/Logotipo.ico" rel="icon" type="image/x-icon" />
+
+    <!-- Importar la fuente Lora desde Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        /* Aplicar Lora a todo el sitio */
+        body, button, input, select, textarea, a, h1, h2, h3, h4, h5, h6, p, li {
+            font-family: 'Lora', serif !important;
+        }
+
+        /* NAVBAR */
+        .custom-navbar {
+            background-color: rgb(241, 241, 241) !important;
+        }
+
+            .custom-navbar .nav-link {
+                color: rgb(23, 46, 112) !important;
+            }
+
+            .custom-navbar .navbar-brand img {
+                height: 40px; /* Ajusta el tamaño del logo */
+            }
+
+        /* FOOTER */
+        footer {
+            background-color: rgb(198, 98, 63) !important;
+            color: white;
+            width: 100%;
+            position: relative;
+            bottom: 0;
+        }
+    </style>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Application</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg custom-navbar">
+            <div class="container">
+                <!-- Sustituir texto por imagen -->
+                <a class="navbar-brand" href="#!">
+                    <img src="~/images/Imagotipo.png" alt="Logo" style="max-height: 90px;" />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                        <!-- Inicio -->
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link fw-semibold" style="font-size: 1.3rem;"
+                               asp-area="" asp-controller="Home" asp-action="Conocenos">Conocenos</a>
                         </li>
+
+                        <!-- Valores -->
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link fw-semibold" style="font-size: 1.3rem;"
+                               asp-area="" asp-controller="Home" asp-action="Valores">Nosotros</a>
                         </li>
+
+                        <!-- Principios -->
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="CrearCuenta">Priv</a>
+                            <a class="nav-link fw-semibold" style="font-size: 1.3rem;"
+                               asp-area="" asp-controller="Home" asp-action="Servicios">Servicios</a>
                         </li>
+
+                        <!-- Registrate como botón -->
+                        <li class="nav-item ms-2">
+                            <a class="btn text-white fw-bold"
+                               style="background-color: rgb(0,168,108); font-size: 1.3rem; padding: 6px 16px; border-radius: 6px;"
+                               asp-area="" asp-controller="LoginAcceso" asp-action="InicioDeSesion">
+                                Acceder
+                            </a>
+                        </li>
+
+                        <!-- Registrate como botón -->
+                        <li class="nav-item ms-2">
+                            <a class="btn text-white fw-bold"
+                               style="background-color: rgb(0,168,108); font-size: 1.3rem; padding: 6px 16px; border-radius: 6px;"
+                               asp-area="" asp-controller="Usuario" asp-action="CrearCuenta">
+                                Registrarse
+                            </a>
+                        </li>
+
                     </ul>
                 </div>
-
             </div>
         </nav>
+
     </header>
-    <div class="container">
+
+    
+    <div class="container flex-grow-1">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - Application - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+    <!-- FOOTER -->
+    <footer class="text-center text-lg-start mt-auto">
+        <div class="container p-4">
+            <div class="row my-4">
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <div class="text-center mb-4">
+                        <img src="~/images/Imagotipo.png" alt="Logo" class="img-fluid" style="max-height: 150px;" />
+                    </div>
+                    <p class="text-center">Homless animal shelter The budgetary unit of the Capital City of Warsaw</p>
+
+                    <p class="text-center">Homless animal shelter The budgetary unit of the Capital City of Warsaw</p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase mb-4">Animals</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#!" class="text-white">When your pet is missing</a></li>
+                        <li><a href="#!" class="text-white">Recently found</a></li>
+                        <li><a href="#!" class="text-white">How to adopt?</a></li>
+                        <li><a href="#!" class="text-white">Pets for adoption</a></li>
+                        <li><a href="#!" class="text-white">Material gifts</a></li>
+                        <li><a href="#!" class="text-white">Help with walks</a></li>
+                        <li><a href="#!" class="text-white">Volunteer activities</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase mb-4">Animals</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#!" class="text-white">General information</a></li>
+                        <li><a href="#!" class="text-white">About the shelter</a></li>
+                        <li><a href="#!" class="text-white">Statistic data</a></li>
+                        <li><a href="#!" class="text-white">Job</a></li>
+                        <li><a href="#!" class="text-white">Tenders</a></li>
+                        <li><a href="#!" class="text-white">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase mb-4">Contact</h5>
+                    <ul class="list-unstyled">
+                        <li><p>Warsaw, 57 Street, Poland</p></li>
+                        <li><p>+ 01 234 567 89</p></li>
+                        <li><p>contact@example.com</p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="text-center p-3" style="background-color: rgba(0,0,0,0.2)">
+            © 2025 Copyright: <a class="text-white" href="#">YourWebsite.com</a>
         </div>
     </footer>
 

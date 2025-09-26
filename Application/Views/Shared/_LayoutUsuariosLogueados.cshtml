@@ -1,15 +1,118 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>_LayoutUsuariosLogueados</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Etzél</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Application.styles.css" asp-append-version="true" />
+
+    <link href="~/Logotipo.ico" rel="icon" type="image/x-icon" />
+
+    <!-- Importar la fuente Lora desde Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        /* Aplicar Lora a todo el sitio */
+        body, button, input, select, textarea, a, h1, h2, h3, h4, h5, h6, p, li {
+            font-family: 'Lora', serif !important;
+        }
+
+        /* NAVBAR */
+        .custom-navbar {
+            background-color: rgb(241, 241, 241) !important;
+        }
+
+            .custom-navbar .nav-link {
+                color: rgb(23, 46, 112) !important;
+            }
+
+            .custom-navbar .navbar-brand img {
+                height: 40px; /* Ajusta el tamaño del logo */
+            }
+
+       
+    </style>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
+    <header>
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg custom-navbar">
+            <div class="container">
+                <!-- Sustituir texto por imagen -->
+                <a class="navbar-brand" href="#!">
+                    <img src="~/images/Imagotipo.png" alt="Logo" style="max-height: 90px;" />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                        <!-- Registrate como botón -->
+                        <li class="nav-item ms-2">
+                            <a class="btn text-white fw-bold"
+                               style="background-color: rgb(0,168,108); font-size: 1.3rem; padding: 6px 16px; border-radius: 6px;"
+                               asp-area="" asp-controller="Marketplace" asp-action="InicioMarketplaceMiPymes">
+                                Marketplace
+                            </a>
+                        </li>
+
+                        <!-- Registrate como botón -->
+                        <li class="nav-item ms-2">
+                            <a class="btn text-white fw-bold"
+                               style="background-color: rgb(0,168,108); font-size: 1.3rem; padding: 6px 16px; border-radius: 6px;"
+                               asp-area="" asp-controller="Usuario" asp-action="CrearCuenta">
+                                Formulaciones
+                            </a>
+                        </li>
+
+                        <!-- Registrate como botón -->
+                        <li class="nav-item ms-2">
+                            <a class="btn text-white fw-bold"
+                               style="background-color: rgb(0,168,108); font-size: 1.3rem; padding: 6px 16px; border-radius: 6px;"
+                               asp-area="" asp-controller="Usuario" asp-action="CrearCuenta">
+                                Calculadora De Porciones
+                            </a>
+                        </li>
+
+                        <!-- Registrate como botón -->
+                        <li class="nav-item ms-2">
+                            <a class="btn text-white fw-bold"
+                               style="background-color: rgb(23, 46, 112); font-size: 1.3rem; padding: 6px 16px; border-radius: 6px;"
+                               asp-area="" asp-controller="Usuario" asp-action="CrearCuenta">
+                                Cerrar Sesion
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </header>
+
+
+    <div class="container flex-grow-1">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+   
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

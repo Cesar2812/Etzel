@@ -1,0 +1,113 @@
+﻿@{
+    ViewData["Title"] = "Conocenos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    /* Ajuste del ancho del header*/
+    header.full-width-header {
+        width: 100vw; /* Asegura que el header ocupe todo el ancho del viewport */
+        margin-left: calc(50% - 50vw); /* Truco para centrar y eliminar los márgenes */
+    }
+
+    /*2. Efecto de aparición para las secciones*/
+    .section-card {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .section-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+    } 
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 0;
+    }
+
+</style>
+
+<header class="py-5 position-relative full-width-header" style="background-image: url('@Url.Content("~/images/Volcan.png")'); background-size: cover; background-position: center; background-attachment: fixed; height: 60vh;">
+    <div class="overlay"></div>
+    <div class="container px-5 position-relative z-index-1">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xxl-6">
+                <div class="text-center my-5">
+                    <h1 class="fw-bolder mb-3" style="color:white">¡Nuestra Filosofia.!</h1>
+                    <p class="lead fw-normal mb-4" style="color: #d3d3d3;">“Colaborar para crecer, innovar para trascender.”</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="py-5 bg-light mt-2 section-card" id="scroll-target">
+    <div class="container px-5 my-5">
+        <div class="row gx-5 align-items-center">
+            <div class="col-lg-6"><img class="img-fluid rounded mb-5 mb-lg-0" src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." /></div>
+            <div class="col-lg-6">
+                <h2 class="fw-bolder">¿Qué es Etzél</h2>
+                <p class="lead fw-normal text-muted mb-0">
+                    Etzél es una plataforma digital integral diseñada para fortalecer a profesionales
+                    independientes (emprendedores, diseñadores y artistas), artesanos y MIPYMES
+                    nicaragüenses. Proporcionándoles herramientas que los impulsen en los
+                    mercados nacionales e internacionales, al profesionalizar y estandarizar sus
+                    procesos productivos, mientras se fomenta la colaboración y el intercambio de
+                    conocimiento, preservando y proyectando nuestras raíces culturales.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="py-5 section-card">
+    <div class="container px-5 my-5">
+        <div class="row gx-5 align-items-center">
+            <div class="col-lg-6 order-first order-lg-last"><img class="img-fluid rounded mb-5 mb-lg-0" src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." /></div>
+            <div class="col-lg-6">
+                <h2 class="fw-bolder">¿Qué busca Etzél?</h2>
+                <p class="lead fw-normal text-muted mb-0">
+                    Impulsar, profesionalizar, estandarizar e inspirar a las mentes innovadoras
+                    creando un sitio, en donde el producto del intelecto nicaragüense sea compartido y
+                    comercializado, proyectando a nuestros profesionales independientes y
+                    preservando nuestra cultura
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@section Scripts {
+    <script>
+        //efectos sobre los cards
+        document.addEventListener("DOMContentLoaded", function() {
+            const sectionCards = document.querySelectorAll('.section-card');
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        // Dejamos de observar el elemento una vez que ha aparecido
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                // El observador se activa cuando el 10% del elemento es visible
+                threshold: 0.1
+            });
+
+            sectionCards.forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
+}

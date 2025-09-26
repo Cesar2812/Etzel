@@ -1,51 +1,96 @@
 ﻿@model LayerDomainModel.DMUsuario
 
 @{
-    ViewData["Title"] = "CrearCuenta";
+    ViewData["Title"] = "Crear Cuenta";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>CrearCuenta</h1>
+<style>
+    .center-card-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 82vh; /* Centra el card verticalmente en la pantalla */
+    }
 
-<h4>UserViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CrearCuenta" asp-controller="Usuario" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Correo" class="control-label"></label>
-                <input asp-for="Correo" class="form-control" />
-                @if (ViewBag.ErrorCorreo != null)
-                {
-                     <div class="alert alert-danger text-danger" role="alert">
-                        @ViewBag.ErrorCorreo
-                            </div>
-                }
-            </div>
-            <div class="form-group">
-                <label asp-for="Clave_hash" class="control-label"></label>
-                <input asp-for="Clave_hash" class="form-control" />
-               
-                @if (ViewBag.ErrorClave != null)
-                {
-                    <div class="alert alert-danger text-danger" role="alert">
-                        @ViewBag.ErrorClave
-                    </div>
-                }
-            </div>
-           
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+    .card {
+        max-width: 500px; /* Ancho máximo para el card */
+        width: 100%; /* Asegura que se adapte a anchos menores */
+    }
+
+    .card-title-with-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .card-title-with-icon img {
+            margin-right: 10px; /* Espacio entre el ícono y el texto */
+        }
+
+
+
+    .btn-warning {
+        background-color: rgb(23, 46, 112) !important; /* El color RGB solicitado */
+        border-color: rgb(23, 46, 112) !important;
+        /* Opcional: para que el borde también coincida */
+        color:white
+    }
+
+        /* Opcional: estilo para el hover */
+        .btn-warning:hover {
+            background-color: rgb(18, 36, 89) !important; /* Un tono un poco más oscuro para el hover */
+            border-color: rgb(18, 36, 89) !important;
+            color: white
+        }
+</style>
+
+<div class="container center-card-container">
+    <div class="card mt-0">
+        <div class="card-body bg-light">
+            <h5 class="card-title card-title-with-icon">
+                <img src="~/images/Logotipo.png" alt="Icono de crear cuenta" style="height: 30px;">
+                CREACION DE CUENTA
+            </h5>
+            <form>
+                <div class="mb-2">
+                    <label for="comboDepartamento" class="form-label">Departamento</label>
+                    <select class="form-select form-select-sm" id="comboDepartamento"></select>
+                </div>
+
+                <div class="mb-2">
+                    <label for="comboMunicipio" class="form-label">Municipio</label>
+                    <select class="form-select form-select-sm" id="comboMunicipio"></select>
+                </div>
+
+                <div class="mb-2">
+                    <label for="comboTipoCuenta" class="form-label">Tipo de cuenta a crear</label>
+                    <select class="form-select form-select-sm" id="comboTipoCuenta">
+                        <option value="">Seleccione un tipo de cuenta</option>
+                        <option value="personal">Cuenta Personal</option>
+                        <option value="empresarial">Cuenta Empresarial</option>
+                    </select>
+                </div>
+
+                <div class="mb-2">
+                    <label for="txtCorreo" class="form-label">Correo</label>
+                    <input type="email" class="form-control form-control-sm" id="txtCorreo" autocomplete="off" />
+                </div>
+
+                <div class="mb-2">
+                    <label for="txtClave" class="form-label">Clave</label>
+                    <input type="password" class="form-control form-control-sm" id="txtClave" autocomplete="off" />
+                </div>
+
+                <div class="d-grid">
+                    <button class="btn btn-warning" type="button" onclick="RealizarPago()">
+                       
+                        Crear Cuenta
+                    </button>
+                </div>
+
+                
+            </form>
+        </div>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

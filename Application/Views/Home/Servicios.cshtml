@@ -1,0 +1,227 @@
+﻿@{
+    ViewData["Title"] = "Servicios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 0;
+    }
+
+    /* Ajuste del ancho del header*/
+    header.full-width-header {
+        width: 100vw; /* Asegura que el header ocupe todo el ancho del viewport */
+        margin-left: calc(50% - 50vw); /* Truco para centrar y eliminar los márgenes */
+    }
+
+     .accordion-button {
+        background-color: white !important;
+        color: black !important;
+        transition: background-color 0.5s, opacity 0.5s;
+        font-size: 1.2rem;
+    }
+
+        .accordion-button:hover {
+            background-color: white !important;
+            color:black !important;
+            opacity: 0.8;
+        }
+
+        .accordion-button.active {
+            background-color: rgb(0, 168, 108) !important;
+            color: black !important;
+        }
+
+    .accordion-body {
+        font-size: 1.1rem;
+    }
+
+
+
+
+    .bg-black {
+        position: relative;
+        min-height: 300px;
+        opacity: 0;
+        transition: opacity 1s ease-out; /* Transición de opacidad */
+    }
+
+        .bg-black.visible {
+            opacity: 1;
+        }
+
+</style>
+
+<header class="py-5 position-relative full-width-header" style="background-image: url('@Url.Content("~/images/Artesano.png")'); background-size: cover; background-position: center; background-attachment: fixed; height: 60vh;">
+    <div class="overlay"></div>
+    <div class="container px-5 position-relative z-index-1">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xxl-6">
+                <div class="text-center my-5">
+                    <h1 class="fw-bolder mb-3" style="color:white">¡Etzél!</h1>
+                    <p class="lead fw-normal mb-4" style="color: #d3d3d3;">“Colaborativo, Integral, Estandarizar sin homogeneizar, Accesible, Compartir conocimiento”</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!--SECCION DE MANTENIMIETO DE PC-->
+<section class="py-5">
+    <div class="container px-5 my-5">
+        <div class="row gx-5">
+            <!-- Sección del Acordeón -->
+            <div class="col-xl-6">
+                <div class="text-center mb-5">
+                    <h1 class="fw-bolder">Marketplace de Recursos Descargables</h1>
+                </div>
+
+                <!-- FAQ Accordion -->
+
+                <div class="accordion mb-5" id="accordionExample1">
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="headingOne1">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1">
+                                Saber Mas...
+                            </button>
+                        </h3>
+                        <div class="accordion-collapse collapse show" id="collapseOne1" aria-labelledby="headingOne1" data-bs-parent="#accordionExample1">
+                            <div class="accordion-body">
+                                Un módulo integrado que permite a los usuarios acceder a una biblioteca de recursos como patrones, moldes, plantillas y formularios. Este Marketplace es un espacio colaborativo donde artensano, diseñadores y Profesionales independientes pueden subir y compartir.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección de Mantenimiento -->
+            <div class="col-xl-6">
+                <div class="d-flex align-items-center">
+                    <div class="text-center">
+                        <img class="img-fluid rounded mb-4" src="~/images/MarketplacedePlantillas.png" alt="Mantenimiento de PC" />
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> 
+
+
+<!--SECCION DE REPARACION DE PC-->
+<section class="py-5  bg-light">
+    <div class="container px-5 my-5">
+        <div class="row gx-5">
+            <!-- Sección del Acordeón -->
+            <div class="col-xl-6">
+                <div class="text-center mb-5">
+                    <h1 class="fw-bolder">Calculadora de Proporciones</h1>
+                </div>
+
+                <!-- FAQ Accordion -->
+
+                <div class="accordion mb-5" id="accordionExample2">
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="headingOne2">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne2" aria-expanded="true" aria-controls="collapseOne2">
+                                Saber Mas...
+                            </button>
+                        </h3>
+                        <div class="accordion-collapse collapse show" id="collapseOne2" aria-labelledby="headingOne2" data-bs-parent="#accordionExample2">
+                            <div class="accordion-body">
+                                Una herramienta interactiva que ayuda a las empresas a determinar las cantidades y proporciones de materiales necesarias a partir de las dimensiones de un producto deseado.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección de Mantenimiento -->
+            <div class="col-xl-6">
+                <div class="d-flex align-items-center">
+                    <div class="text-center">
+                        <img class="img-fluid rounded mb-4" src="~/images/Calculadora.jpg" alt="Reparacion de PC" />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--SECCION DE MANTENIMIETO DE VIDEOCONSOLAS-->
+<section class="py-5">
+    <div class="container px-5 my-5">
+        <div class="row gx-5">
+            <!-- Sección del Acordeón -->
+            <div class="col-xl-6">
+                <div class="text-center mb-5">
+                    <h1 class="fw-bolder">Asistente Virtual</h1>
+                </div>
+
+                <!-- FAQ Accordion -->
+                <div class="accordion mb-5" id="accordionExample3">
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="headingOne3">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne3" aria-expanded="true" aria-controls="collapseOne3">
+                                Saber Mas...
+                            </button>
+                        </h3>
+                        <div class="accordion-collapse collapse show" id="collapseOne3" aria-labelledby="headingOne3" data-bs-parent="#accordionExample3">
+                            <div class="accordion-body">
+                                Un asistente impulsado por inteligencia artificial que ofrece sugerencias personalizadas para mejorar la estandarización y la eficiencia de los procesos productivos de la empresa.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección de Mantenimiento -->
+            <div class="col-xl-6">
+                <div class="d-flex align-items-center">
+                    <div class="text-center">
+                        <img class="img-fluid rounded mb-4" src="~/images/Asistente Virtual.jpg" alt="Mantenimiento de VideoConsolas" />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Cerrar todos los acordeones excepto el primero
+        document.querySelectorAll(".accordion-collapse").forEach((el, index) => {
+            if (index !== 0) {
+                el.classList.remove("show");
+            }
+        });
+
+        // Asegurar que solo se abre uno a la vez los acordones
+        document.querySelectorAll(".accordion-button").forEach(button => {
+            button.addEventListener("click", function () {
+                let target = this.getAttribute("data-bs-target");
+                document.querySelectorAll(".accordion-collapse").forEach(el => {
+                    if ("#" + el.id !== target) {
+                        el.classList.remove("show");
+                    }
+                });
+            });
+        });
+    });
+
+
+    // Cuando se cargue la página, se agrega la clase 'visible' para activar la transición
+    window.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelector('.bg-black').classList.add('visible');
+    });
+</script>

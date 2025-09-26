@@ -1,7 +1,82 @@
 ﻿@{
-    ViewData["Title"] = "InicioDeSesion";
+    ViewData["Title"] = "Inicio De Sesion";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
 
-<h1>InicioDeSesion</h1>
+    .logo-container {
+        max-width: 300px;
+        margin: 0 auto;
+    }
 
+    .custom-alert {
+        width: 350px;
+        padding: 10px;
+        box-shadow: none;
+        border-radius: 8px;
+    }
+
+    .btn-login {
+        background-color: rgb( 23, 46, 112);
+        color: #fff;
+        font-size: 16px;
+        padding: 10px;
+        width: 35%;
+        border: none;
+        border-radius: 8px;
+    }
+
+        .btn-login:hover {
+            background-color: rgb( 23, 46, 112);
+            color: white;
+        }
+</style>
+<div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+        <main>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5">
+                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <div class="card-header text-center">
+                                <div class="logo-container">
+                                    <img src="~/images/Logotipo.png" alt="Logo" class="mb-3 mt-3" style="max-width: 40%; height: auto;" />
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <form action="@Url.Action("Index","Acceso")" method="post">
+                                    <div class="form-floating mb-3">
+                                        <input type="email" class="form-control" name="correo" placeholder="name@example.com" autocomplete="off">
+                                        <label for="inputEmail">Correo</label>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" name="clave" type="password" placeholder="Password" />
+                                        <label for="inputPassword">Contraseña</label>
+                                    </div>
+
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
+                                        <label class="form-check-label" for="inputRememberPassword">Recordar Contraseña</label>
+                                    </div>
+
+                                    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                        <a class="small" href="@Url.Action("RestablecerClave", "Acceso")">¿Has Olvidado Tu Contraseña?</a>
+                                        @*@<button type="submit" class="btn btn-primary">Iniciar Sesion</button>*@
+                                        <button class="btn btn-login" type="submit">Iniciar Sesion</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="card-footer text-center py-4">
+                                <div class="small"><a href="register.html"></a></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
