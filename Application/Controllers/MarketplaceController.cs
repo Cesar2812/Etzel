@@ -7,7 +7,7 @@ using System.Security.Claims;
 namespace Application.Controllers;
 
 
-//[Authorize]
+[Authorize]
 public class MarketplaceController : Controller
 {
     private readonly UCListarTipoRecurso _listarTipoRecusro;
@@ -37,8 +37,8 @@ public class MarketplaceController : Controller
     }
 
 
-    //vista para visualizar el marketplace
-    //[Authorize(Roles = "MIPYME")]
+    ////vista para visualizar el marketplace
+    [Authorize(Roles = "MIPYME")]
     public IActionResult InicioMarketplaceMiPymes()
     {
         return View();
@@ -47,6 +47,11 @@ public class MarketplaceController : Controller
 
     [Authorize(Roles = "Artista,Profesional Independiente,Artesano")]
     public IActionResult InicioMarketplacePerfilPorUsuario()
+    {
+        return View();
+    }
+
+    public IActionResult Bienvenida()
     {
         return View();
     }

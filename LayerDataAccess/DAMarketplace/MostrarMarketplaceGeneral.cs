@@ -68,10 +68,6 @@ public class MostrarMarketplaceGeneral:IMostrarMarketplaceGeneral
                                 DescripcionEstadoRecurso= dr["DescripcionEstadoRecurso"].ToString()!,
                             }
                         },
-                        objUsuario= new DMUsuario()
-                        {
-                            NombrePersona= dr["NombrePublicador"].ToString(),
-                        },
                         FechaPublicacion = Convert.ToDateTime(dr["FechaPublicacion"])
                     });
                 }

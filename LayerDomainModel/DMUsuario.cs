@@ -2,7 +2,7 @@
 
 namespace LayerDomainModel;
 
-public class DMUsuario : DMPersona
+public class DMUsuario
 {
     //datos del Usuario
     public int IdUsuario { get; set; }
@@ -14,17 +14,11 @@ public class DMUsuario : DMPersona
     public DMRol? objRol { get; set; }//si se quiere obtener el rol en el perfil
 
 
+    public int idMunicipio { get; set; }
 
-    //campos para el guardado de la imagen o foto del Usuario
-    public string? RutaFoto { get; set; }//ruta
+    public DMMunicipio? objMunicipio { get; set; }
 
-    public string? NombreFoto { get; set; }//descripcion
 
-    public IFormFile? archivo { get; set; }
-
-    public string? Base64 { get; set; }
-
-    public string? Extension { get; set; }
 
 
 

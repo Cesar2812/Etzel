@@ -58,11 +58,6 @@ GO
 
 
 ----ESQUEMA DE CATALOGOS---
-----TABLA GENERO---
-INSERT INTO CATALOGOS.Genero(DescripcionGenero)
-VALUES('Masculino'),('Femenino')
-GO
-
 
 ----TABLA TIPOSECTORECONOMICO---
 INSERT INTO CATALOGOS.TipoSectorEconomico(NombreSector)
@@ -78,10 +73,13 @@ VALUES('Patron'),('Molde'),('Plantilla'),('Formulario'),('Manual')
 
 
 
-
 ---ESQUEMA DE SEGURIDAD---
 ----TABLA USUARIO ROL---
 INSERT INTO SEGURIDAD.RolUsuario(DescripcionRol)
 VALUES('MIPYME'),('Experto'),('Diseñador')
 GO
+INSERT INTO SEGURIDAD.RolUsuario(DescripcionRol)
+VALUES('Artesano')
+GO
 
+Select * from SEGURIDAD.RolUsuario

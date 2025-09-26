@@ -1,6 +1,4 @@
-﻿@model LayerDomainModel.DMUsuario
-
-@{
+﻿@{
     ViewData["Title"] = "Crear Cuenta";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -46,13 +44,15 @@
 </style>
 
 <div class="container center-card-container">
-    <div class="card mt-0">
+    <div class="card mt-2">
         <div class="card-body bg-light">
             <h5 class="card-title card-title-with-icon">
                 <img src="~/images/Logotipo.png" alt="Icono de crear cuenta" style="height: 30px;">
                 CREACION DE CUENTA
             </h5>
             <form>
+                <input id="txtId" type="hidden" value="0" />
+
                 <div class="mb-2">
                     <label for="comboDepartamento" class="form-label">Departamento</label>
                     <select class="form-select form-select-sm" id="comboDepartamento"></select>
@@ -65,32 +65,216 @@
 
                 <div class="mb-2">
                     <label for="comboTipoCuenta" class="form-label">Tipo de cuenta a crear</label>
-                    <select class="form-select form-select-sm" id="comboTipoCuenta">
-                        <option value="">Seleccione un tipo de cuenta</option>
-                        <option value="personal">Cuenta Personal</option>
-                        <option value="empresarial">Cuenta Empresarial</option>
-                    </select>
+                    <select class="form-select form-select-sm" id="comboTipoCuenta"></select>
                 </div>
 
                 <div class="mb-2">
                     <label for="txtCorreo" class="form-label">Correo</label>
-                    <input type="email" class="form-control form-control-sm" id="txtCorreo" autocomplete="off" />
+                    <input type="email" class="form-control form-control-sm" id="txtCorreo" autocomplete="off" required />
                 </div>
 
+                <!-- Clave -->
                 <div class="mb-2">
                     <label for="txtClave" class="form-label">Clave</label>
-                    <input type="password" class="form-control form-control-sm" id="txtClave" autocomplete="off" />
+                    <div class="input-group input-group-sm">
+                        <input type="password" class="form-control" id="txtClave" autocomplete="off"/>
+                        <span class="input-group-text" onclick="togglePassword('txtClave','toggleIcon1')" style="cursor: pointer;">
+                            <i class="fas fa-eye" id="toggleIcon1"></i>
+                        </span>
+                    </div>
                 </div>
 
+                <!-- Confirmar Clave -->
+                <div class="mb-2">
+                    <label for="txtClaveConfirmar" class="form-label">Confirmar Clave</label>
+                    <div class="input-group input-group-sm">
+                        <input type="password" class="form-control" id="txtClaveConfirmar" autocomplete="off"/>
+                        <span class="input-group-text" onclick="togglePassword('txtClaveConfirmar','toggleIcon2')" style="cursor: pointer;">
+                            <i class="fas fa-eye" id="toggleIcon2"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Mensaje de validación -->
+                <div id="mensajeClave"></div>
+
                 <div class="d-grid">
-                    <button class="btn btn-warning" type="button" onclick="RealizarPago()">
-                       
+                    <button class="btn btn-warning" type="button" onclick="validarYCrearCuenta()">
                         Crear Cuenta
                     </button>
                 </div>
-
-                
             </form>
         </div>
     </div>
 </div>
+
+@section Scripts
+{
+  <script>
+        $(document).ready(function () {
+            ListarDepartamentos();
+            ListarRol();
+        });
+
+
+        //función que muestra la clave con el icono de fontawesome
+        function togglePassword(inputId, iconId) {
+            var passwordField = document.getElementById(inputId);
+            var toggleIcon = document.getElementById(iconId);
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleIcon.classList.remove("fa-eye");
+                toggleIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordField.type = "password";
+                toggleIcon.classList.remove("fa-eye-slash");
+                toggleIcon.classList.add("fa-eye");
+            }
+        }
+
+            function validarYCrearCuenta() {
+                var clave = $("#txtClave").val();
+                var confirmar = $("#txtClaveConfirmar").val();
+                var mensajeDiv = $("#mensajeClave");
+
+                mensajeDiv.html(""); // limpiar mensajes previos
+
+                if (clave === "" || confirmar === "") 
+                {
+                    mensajeDiv.html(`
+                        <div class="form-group">
+                            <div class="alert alert-danger" role="alert">
+                                ❌ Por favor ingrese ambas contraseñas.
+                            </div>
+                        </div>
+                    `);
+                    return; 
+                }
+
+                if (clave === confirmar) 
+                {
+                    CrearCuenta(); 
+
+                } else 
+                {
+                    mensajeDiv.html(`
+                        <div class="form-group">
+                            <div class="alert alert-danger" role="alert">
+                                ❌ Las contraseñas no coinciden.
+                            </div>
+                        </div>
+                    `);
+                }
+            }
+
+
+        
+
+        // combo de departamentos
+        function ListarDepartamentos() {
+            $("<option>").attr({ "value": "0","disabled":"disabled","selected":"true"}).text("Seleccionar Departamento").appendTo("#comboDepartamento")
+
+            jQuery.ajax({
+                url: "@Url.Action("ListarDepartamento", "Usuario")",
+                type: "GET",
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    if (data.listaDepartamento != null) {
+                        $.each(data.listaDepartamento, function (i, item) {
+                            $("<option>").attr({ "value": item.idDepartamento }).text(item.nombreDepartamento).appendTo("#comboDepartamento")
+                        })
+                        ListarMunicipio();
+                    }
+                }
+            })
+        }
+
+        $("#comboDepartamento").on("change", function () {
+            ListarMunicipio();
+        })
+
+        // combo de Municipio
+        function ListarMunicipio() {
+            $("#comboMunicipio").html("")
+            $("<option>").attr({ "value": "0", "disabled": "disabled", "selected": "true" }).text("Seleccionar Municipio").appendTo("#comboMunicipio")
+            var valor = Number($("#comboDepartamento option:selected").val());
+
+            jQuery.ajax({
+                url: "@Url.Action("ObtenerMunicipio", "Usuario")",
+                type: "POST",
+                dataType: "json",
+                data: { idDepartamento: valor },
+                success: function (data) {
+                    if (data.listaMunicipo != null) {
+                        $.each(data.listaMunicipo, function (i, item) {
+                            $("<option>").attr({ "value": item.idMunicipio }).text(item.nombreMunicipio).appendTo("#comboMunicipio")
+                        })
+                    }
+                }
+            })
+        }
+
+        // combo de rol
+        function ListarRol() {
+            $("#comboTipoCuenta").html("")
+            $("<option>").attr({ "value": "0","disabled":"disabled","selected":"true"}).text("Seleccionar Tipo de Cuenta").appendTo("#comboTipoCuenta")
+
+            jQuery.ajax({
+                url: "@Url.Action("ListarRol", "Usuario")",
+                type: "GET",
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    console.log(data.listaRol);
+                    if (data.listaRol != null) {
+                        $.each(data.listaRol, function (i, item) {
+                            $("<option>").attr({ "value": item.idRolUsuario }).text(item.descripcionRol).appendTo("#comboTipoCuenta")
+                        })
+                    }
+                }
+            })
+        }
+
+
+        function CrearCuenta(){
+            var DMUsuario={
+                Correo:$("#txtCorreo").val(),
+                Clave_hash:$("#txtClaveConfirmar").val(),
+                idtipoUsuario:$("#comboTipoCuenta option:selected").val(),
+                idMunicipio:$("#comboMunicipio option:selected").val()
+            } 
+
+            jQuery.ajax({
+                url:'@Url.Action("CrearCuenta", "Usuario")',
+                type:"POST",
+                data:JSON.stringify(DMUsuario),
+                dataType:"json",
+                contentType: "application/json; charset=utf-8",
+                success:function(response){
+                    if (response.success) 
+                    {
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: response.message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(() => {
+                            window.location = '@Url.Action("Index", "LoginAcceso")';
+                        });
+                    }
+                }
+
+            })
+
+           
+        }
+
+        
+
+
+        
+  </script>
+}

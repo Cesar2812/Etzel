@@ -1,7 +1,9 @@
-﻿@{
+﻿@using System.Security.Claims;
+@using Microsoft.AspNetCore.Identity;
+
+@{
     Layout = null;
 }
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +15,10 @@
     <link rel="stylesheet" href="~/Application.styles.css" asp-append-version="true" />
 
     <link href="~/Logotipo.ico" rel="icon" type="image/x-icon" />
+
+    <link href="~/lib/datatables2/css/datatables.datatables.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
     <!-- Importar la fuente Lora desde Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -47,7 +53,7 @@
             <div class="container">
                 <!-- Sustituir texto por imagen -->
                 <a class="navbar-brand" href="#!">
-                    <img src="~/images/Imagotipo.png" alt="Logo" style="max-height: 90px;" />
+                    <img src="~/images/Imagotipo.png" alt="Logo" style="max-height: auto;" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -56,44 +62,88 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                         @if(User.IsInRole("MIPYME"))
+                        {
+                             
+                            <li class="nav-item ms-2">
+                                <a class="btn text-white fw-bold"
+                                   style="background-color: rgb(0,168,108); font-size: 1.3rem; padding: 6px 16px; border-radius: 6px;"
+                                   asp-area="" asp-controller="Marketplace" asp-action="InicioMarketplaceMiPymes">
+                                    Marketplace
+                                </a>
+                            </li>
 
-                        <!-- Registrate como botón -->
-                        <li class="nav-item ms-2">
-                            <a class="btn text-white fw-bold"
-                               style="background-color: rgb(0,168,108); font-size: 1.3rem; padding: 6px 16px; border-radius: 6px;"
-                               asp-area="" asp-controller="Marketplace" asp-action="InicioMarketplaceMiPymes">
-                                Marketplace
-                            </a>
-                        </li>
+                           
+                            <li class="nav-item ms-2">
+                                <a class="btn text-white fw-bold"
+                                   style="background-color: rgb(0,168,108); font-size: 1.3rem; padding: 6px 16px; border-radius: 6px;"
+                                   asp-area="" asp-controller="Usuario" asp-action="CrearCuenta">
+                                    Mis Formulaciones
+                                </a>
+                            </li>
 
-                        <!-- Registrate como botón -->
-                        <li class="nav-item ms-2">
-                            <a class="btn text-white fw-bold"
-                               style="background-color: rgb(0,168,108); font-size: 1.3rem; padding: 6px 16px; border-radius: 6px;"
-                               asp-area="" asp-controller="Usuario" asp-action="CrearCuenta">
-                                Formulaciones
-                            </a>
-                        </li>
+                        
+                            <li class="nav-item ms-2">
+                                <a class="btn text-white fw-bold"
+                                   style="background-color: rgb(0,168,108); font-size: 1.3rem; padding: 6px 16px; border-radius: 6px;"
+                                   asp-area="" asp-controller="Usuario" asp-action="CrearCuenta">
+                                    Mi Calculadora De Porciones
+                                </a>
+                            </li> 
 
-                        <!-- Registrate como botón -->
-                        <li class="nav-item ms-2">
-                            <a class="btn text-white fw-bold"
-                               style="background-color: rgb(0,168,108); font-size: 1.3rem; padding: 6px 16px; border-radius: 6px;"
-                               asp-area="" asp-controller="Usuario" asp-action="CrearCuenta">
-                                Calculadora De Porciones
-                            </a>
-                        </li>
-
-                        <!-- Registrate como botón -->
-                        <li class="nav-item ms-2">
-                            <a class="btn text-white fw-bold"
-                               style="background-color: rgb(23, 46, 112); font-size: 1.3rem; padding: 6px 16px; border-radius: 6px;"
-                               asp-area="" asp-controller="Usuario" asp-action="CrearCuenta">
-                                Cerrar Sesion
-                            </a>
-                        </li>
-
+                        }
+                       
+                        @if(User.IsInRole("Artista")|| User.IsInRole("Profesional Independiente") || User.IsInRole("Artesano"))
+                        {
+                            <li class="nav-item ms-2">
+                                <a class="btn text-white fw-bold"
+                                   style="background-color: rgb(0,168,108); font-size: 1.3rem; padding: 6px 16px; border-radius: 6px;"
+                                   asp-area="" asp-controller="Marketplace" asp-action="InicioMarketplacePerfilPorUsuario">
+                                    Publicar Recurso
+                                </a>
+                            </li>
+                        } 
                     </ul>
+
+                    @if (User.IsInRole("MIPYME"))
+                    {
+                       // BARRA DE NAVEGACION DE LA DERECHA PARA LOS USUARIOS
+                        <ul class="navbar-nav ms-auto me-0 me-md-3 my-2 my-md-0">
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#!">@User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault()</a></li>
+                                    <li><a class="dropdown-item" id="misCompras" href="@Url.Action("ListarComprasCliente", "Tienda")">Mis Compras</a></li>
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li>
+                                        <a class="btn btn-danger text-white mx-auto" href="javascript:void(0);" onclick="confirmLogout();" style="width: 145px; padding: 0.345rem 0.60rem; border-radius: 0.25rem; text-align: center; display: block;">Cerrar Sesión</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        </ul>
+                    }
+                    @if(User.IsInRole("Artista") || User.IsInRole("Profesional Independiente") || User.IsInRole("Artesano"))
+                    {
+                        <ul class="navbar-nav ms-auto me-0 me-md-3 my-2 my-md-0">
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#!">@User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault()</a></li>
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li>
+                                        <a class="btn btn-danger text-white mx-auto" href="javascript:void(0);" onclick="confirmLogout();" style="width: 145px; padding: 0.345rem 0.60rem; border-radius: 0.25rem; text-align: center; display: block;">Cerrar Sesión</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        </ul>
+
+                        
+                    }
+
                 </div>
             </div>
         </nav>
@@ -113,6 +163,8 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/datatables2/js/moment.min.js"></script>
+    <script src="~/lib/datatables2/js/datatables.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
