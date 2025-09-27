@@ -1,6 +1,14 @@
 
-----PROCEDIMIENTOS ALMACENADOS
+delete from RECURSOS.RecursosMarketplace
 
+delete from RECURSOS.UsuarioRecursosMarketplace
+
+DBCC CHECKIDENT('RECURSOS.RecursosMarketplace',RESEED,0) 
+go
+
+
+
+----PROCEDIMIENTOS ALMACENADOS
 ---PROCEDMIENTO ALMACENADO PARA INSERTAR USUARIO---
 CREATE OR ALTER PROCEDURE SEGURIDAD.sp_RegistrarUsuario
 (
@@ -66,17 +74,15 @@ CREATE OR ALTER PROCEDURE RECURSOS.sp_RegistrarRecursoMarketplace
     @idUsuario int,
     -- Salidas
     @Resultado int OUTPUT,
-    @Mensaje VARCHAR(500) OUTPUT,
-    @IdRecurso INT OUTPUT
+    @Mensaje VARCHAR(500) OUTPUT
 )
 AS
 BEGIN
     SET NOCOUNT ON;
-    SET @Resultado = 0;
-    SET @IdRecurso = NULL;
-   
 
-    DECLARE  @DescripcionEstadoRecurso VARCHAR(100);
+   set @Resultado=0;
+
+    DECLARE  @DescripcionEstadoRecurso VARCHAR(100),@IdRecurso int;
 
     BEGIN TRY
         BEGIN TRANSACTION;
@@ -90,15 +96,16 @@ BEGIN
         IF @DescripcionEstadoRecurso = 'De Paga'
         BEGIN
             INSERT INTO RECURSOS.RecursosMarketplace(TituloRecurso,DescripcionRecurso,Id_tipoSectorEconomico,Id_tipoRecurso,Id_estadoRecurso,Precio)
-            VALUES (@TituloRecurso,@DescripcionEstadoRecurso,@idSectorEconomico,@idTipoRecurso,@idEstadoRecurso,@Precio);
-            SET @IdRecurso = SCOPE_IDENTITY(); --captura el ID
+            VALUES (@TituloRecurso,@DescripcionRecurso,@idSectorEconomico,@idTipoRecurso,@idEstadoRecurso,@Precio);
+			SET @Resultado = SCOPE_IDENTITY(); --captura el ID
+            SET @IdRecurso= @Resultado
         END
         ELSE
         BEGIN
             INSERT INTO RECURSOS.RecursosMarketplace(TituloRecurso,DescripcionRecurso,Id_tipoSectorEconomico,Id_tipoRecurso,Id_estadoRecurso)
-            VALUES (@TituloRecurso,@DescripcionEstadoRecurso,@idSectorEconomico,@idTipoRecurso,@idEstadoRecurso);
-            SET @IdRecurso = SCOPE_IDENTITY(); --captura el ID
-            SET @Resultado= @IdRecurso
+            VALUES (@TituloRecurso,@DescripcionRecurso,@idSectorEconomico,@idTipoRecurso,@idEstadoRecurso);
+            SET @Resultado = SCOPE_IDENTITY(); --captura el ID
+            SET @IdRecurso= @Resultado
         END
 
         -- Insertar TablaPivote
@@ -120,7 +127,8 @@ BEGIN
 END
 GO
 
-
+select * from RECURSOS.RecursosMarketplace
+DELETE FROM RECURSOS.UsuarioRecursosMarketplace
 ----CONSULTA A BASE DE DATOS PARA MOSTRAR LOS RECURSOS QUE TIENE UN USUARIO EN SU MARKETPLACE---
 Select 
 IdRecurso,

@@ -72,7 +72,7 @@ public class LoginAccesoController : Controller
     {
         //elimando cookie creada al cerrar sesion
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        return RedirectToAction("InicioDeSesion", "Login");
+        return RedirectToAction("Index", "LoginAcceso");
     }
     #endregion
 }

@@ -44,8 +44,7 @@ public class ObtenerSectorEconomico:IListarSectorEconomico
                             new DMTipoSectorEconomico()
                             {
                                 IdTipoSectorEconomico = Convert.ToInt32(dr["IdTipoSectorEconomico"].ToString()),
-                                NombreSector = dr["NombreSector"].ToString(),
-                                DescripcionSector = dr["DescripcionSector"].ToString()
+                                NombreSector = dr["NombreSector"].ToString()
                             }
                         );
 

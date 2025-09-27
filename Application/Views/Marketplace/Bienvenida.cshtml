@@ -5,20 +5,20 @@
 }
 
 <style>
-    body {
+   /*  body {
         font-family: 'Roboto', sans-serif;
-        background-color: #f0f2f5;
+        background-color: white;
         margin: 0;
         display: flex;
         justify-content: center;
         align-items: center;
         min-height: 100vh;
-    }
+    } */
 
     .welcome-container {
         background-color: #ffffff;
         border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 12px rgba(0.2, 0.2, 0.2, 0.2);
         padding: 40px;
         text-align: left;
         width: 90%;
@@ -46,9 +46,9 @@
             }
 </style>
 
-<body>
+
     <div class="welcome-container">
         <h1>BIENVENIDO A ETZÉL</h1>
-        <p class="role">TIPO DE USUARIO: Profesional Independiente</p>
+        <p class="role">TIPO DE USUARIO: @ViewBag.RolUsuario</p>
     </div>
-</body>
+

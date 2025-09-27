@@ -22,13 +22,15 @@
                         <table class="display cell-border" id="tbData" cellspacing="0" style="width:100%">
                             <thead>
                                <tr>
+                                    <th>Imagen</th>
                                     <th>Recurso</th>
                                     <th>Descripcion</th>
                                     <th>Sector Economico</th>
                                     <th>Tipo De Recurso</th>
                                     <th>Estado</th>
                                     <th>Precio</th>
-                                    <th></th>
+                                    <th>Fecha De Publicacion</th>
+                                    
                                </tr>
                             </thead>
                             <tbody>
@@ -63,10 +65,10 @@
 
                     <div class="col-sm-3">
                         <div class="mb-2">
-                            <img id="imagenProducto" height="197" width="200" class="border rounded mx-auto d-block img-fluid" />
+                            <img id="imagenRecurso" height="197" width="200" class="border rounded mx-auto d-block img-fluid" />
                         </div>
                         <div class="mb-2">
-                            <input class="form-control" type="file" id="fileProd" accept="image/png, image/jpg, image/jpeg" onchange="mostrarImagen(this)" />
+                            <input class="form-control" type="file" id="fileRecurso" accept="image/png, image/jpg, image/jpeg" onchange="mostrarImagen(this)" />
                         </div>
                     </div>
 
@@ -86,18 +88,18 @@
                     <div class="col-sm-3">
                         <div class="mb-3">
                             <label class="form-label">Sector Economico</label>
-                            <select id="comboMarca" class="form-select">
+                            <select id="comboSector" class="form-select">
                             </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Tipo De Recurso</label>
-                            <select id="comboCateg" class="form-select">
+                            <select id="comboTipoRecurso" class="form-select">
                             </select>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Estado Del Recurso</label>
-                            <select id="comboCateg" class="form-select">
+                            <select id="comboEstadoRecurso" class="form-select">
                             </select>
                         </div>
                     </div>
@@ -116,7 +118,7 @@
             <!--BOTONES DE ABAJO-->
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-success" onclick="Guardar()">Guardar</button>
+                <button type="button" class="btn btn-success" onclick="GuardarRecurso()">Guardar</button>
             </div>
 
         </div>
@@ -128,10 +130,239 @@
 
     <script>
 
+        let tablaData;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            tablaData = $("#tbData").DataTable({
+                responsive: true,
+                scrollX: true,
+                ajax: {
+                    url: '@Url.Action("MostrarRecursosMarketplaceUsuario", "Marketplace")',
+                    type: "GET",
+                    datatype: "json"
+                },
+                columns: [
+                    {
+                        data: "objRecursoMarketplace.rutaArchivoRecurso",
+                        render: function (data) {
+                            if (data) {
+                                return `<img src="/${data}" class="img-thumbnail" style="width:60px;height:60px;" />`;
+                            } else {
+                                return `<span class="badge bg-secondary">Sin Imagen</span>`;
+                            }
+                        },
+                        orderable: false,
+                        width: "70px"
+                    },
+                    { data: "objRecursoMarketplace.tituloRecurso" }, // Recurso
+                    { data: "objRecursoMarketplace.descripcionRecurso" }, // Descripción
+                    { data: "objRecursoMarketplace.objTipoSectorEconomico.nombreSector" }, // Sector
+                    { data: "objRecursoMarketplace.objTipoRecurso.nombreTipoRecurso" }, // Tipo
+                    { data: "objRecursoMarketplace.objEstadoRecurso.descripcionEstadoRecurso" }, // Estado
+                    {
+                        data: "objRecursoMarketplace.precio",
+                        render: function (data) {
+                            return data > 0
+                                ? `<span class="text-primary fw-bold">${data.toLocaleString("es-NI", { style: "currency", currency: "NIO" })}</span>`
+                                : `<span class="text-success fw-bold">Gratuito</span>`;
+                        }
+                    },
+                    {
+                        data: "fechaPublicacion",
+                        render: function (data) {
+                            const fecha = new Date(data);
+                            return fecha.toLocaleDateString("es-NI", {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric"
+                            });
+                        }
+                    }
+                ]
+            });
+        });
+
+           
+
+
+
+             // al cambiar el estado del recurso
+        $(document).on("change", "#comboEstadoRecurso", function () {
+            let estadoSeleccionado = $("#comboEstadoRecurso option:selected").text().trim();
+
+            if (estadoSeleccionado.toLowerCase() === "de paga") {
+                $("#txtPrecio").prop("disabled", false);
+            } else {
+                $("#txtPrecio").prop("disabled", true).val("");
+            }
+        });
+
+
+         //evento para cargar imagen en la etiqueta img
+        function mostrarImagen(input) {
+            if (input.files)
+            {
+                //declarar un reader para leer archivos
+                var reader = new FileReader();
+
+                //cargando en el evento onload del reader una nueva funcion para pintar el archivo en formato imagen en la etiqueta img
+                reader.onload = function (e)
+                {
+                    $("#imagenRecurso").attr("src", e.target.result).width(200).height(197)
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
         function abrirModal(){
 
             $("#formModal").modal("show");
+            $("#imagenRecurso").removeAttr("src");
+            $("#fileRecurso").val("");
+
+             // al abrir modal, por defecto deshabilito el precio
+            $("#txtPrecio").prop("disabled", true).val("");
+            $("#comboEstadoRecurso").val("0");
+             
+                
+        } 
+
+      
+        //listar sector
+        jQuery.ajax({
+            url:'@Url.Action("ListarSectorEconomico", "Marketplace")',
+            type:"GET",
+            dataType:"json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data)
+            {
+
+
+             //le paso un option para que caregue la data al obtenerla con GET
+                $("<option>").attr({ "value":"0","disabled":"true","selected":"true"}).text("Seleccione Uno").appendTo("#comboSector");
+
+                $.each(data.listaSectorEconomico, function (index, item)
+                {
+                    $("<option>").attr({ "value": item.idTipoSectorEconomico }).text(item.nombreSector).appendTo("#comboSector");
+                })
+            }
+        })
+        
+       
+        //listar TipoRecurso
+        jQuery.ajax({
+            url:'@Url.Action("ListarTipoRecurso", "Marketplace")',
+            type:"GET",
+            dataType:"json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data)
+            {
+                //le paso un option para que caregue la data al obtenerla con GET
+                $("<option>").attr({ "value":"0","disabled":"true","selected":"true"}).text("Seleccione Uno").appendTo("#comboTipoRecurso");
+                console.log(data.listaTipoRecurso)
+                $.each(data.listaTipoRecurso, function (index, item)
+                {
+                    $("<option>").attr({ "value": item.idTipoRecurso }).text(item.nombreTipoRecurso).appendTo("#comboTipoRecurso");
+                })
+            }
+        })
+
+        //listarEstadoRecurso
+        jQuery.ajax({
+            url:'@Url.Action("ListarEstadoRecurso", "Marketplace")',
+            type:"GET",
+            dataType:"json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data)
+            {
+                //le paso un option para que caregue la data al obtenerla con GET
+                $("<option>").attr({ "value":"0","disabled":"true","selected":"true"}).text("Seleccione Uno").appendTo("#comboEstadoRecurso");
+                
+                $.each(data.listaEstadoRecurso, function (index, item)
+                {
+                    $("<option>").attr({ "value": item.idEstadoRecurso }).text(item.descripcionEstadoRecurso).appendTo("#comboEstadoRecurso");
+                })
+            }
+        }) 
+        
+        function GuardarRecurso()
+        {
+                    var precio = $("#comboEstadoRecurso option:selected").text().trim().toLowerCase() === "de paga"
+                    ? $("#txtPrecio").val()
+                    : null;
+
+             //obteniendo la imagen seleccionada
+            var recursoSelecionado = $("#fileRecurso")[0].files[0];
+
+            var Recurso=
+            {
+                IdRecurso:$("#txtId").val(),
+                TituloRecurso:$("#txtNombre").val(),
+                DescripcionRecurso:$("#txtDescripcion").val(),
+                objTipoSectorEconomico:{
+                    IdTipoSectorEconomico:$("#comboSector option:selected").val()
+                },
+                objTipoRecurso:{
+                    IdTipoRecurso:$("#comboTipoRecurso option:selected").val()
+                },
+                objEstadoRecurso:{
+                    IdEstadoRecurso:$("#comboEstadoRecurso").val()
+                },
+                Precio:precio
+            }
+            var request= new FormData();
+            request.append("objRecursoMarketplace",JSON.stringify(Recurso))
+            request.append("archivo",recursoSelecionado)
+
+
+            jQuery.ajax({
+                url:'@Url.Action("AgregarRecursoPorUsuarioMarketplace", "Marketplace")',
+                type:"POST",
+                data:request,
+                processData:false,
+                contentType:false,
+                success:function(response)
+                {
+                    if( Recurso.IdRecurso==0){
+                        if (response.success)
+                        {
+                            if(response.idGenerado!=0){
+                                Recurso.IdRecurso=response.idGenerado;
+
+
+                                Swal.fire({
+                                    position: "top-end",
+                                    icon: "success",
+                                    title: response.message,
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                                
+                                tablaData.ajax.reload(null, false);
+
+                                
+                                $("#formModal").modal("hide");
+
+                            }
+
+
+                        }
+                    }
+                    
+
+                }
+
+
+            })
+
+
+
         }
+
+
+
+
+
 
 
 
