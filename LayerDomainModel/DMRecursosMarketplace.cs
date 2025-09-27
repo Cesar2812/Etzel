@@ -26,7 +26,7 @@ public class DMRecursosMarketplace
 
     public DMEstadoRecurso? objEstadoRecurso { get; set; }
 
-    public decimal Precio { get; set; }
+    public decimal? Precio { get; set; }
 
     public string? PrecioTexto { get; set; }
 

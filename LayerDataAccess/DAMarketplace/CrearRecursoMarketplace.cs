@@ -11,11 +11,12 @@ public class CrearRecursoMarketplace: ICrearRecursoMarketplace
 {
     private readonly Conection _conection;
     SqlConnection conexion;
-    private readonly ILogger<DMUsuario> _logger;
+    private readonly ILogger<DMRecursosMarketplace> _logger;
 
-    public CrearRecursoMarketplace(IOptions<Conection> options)
+    public CrearRecursoMarketplace(IOptions<Conection> options, ILogger<DMRecursosMarketplace> logger)
     {
         _conection = options.Value;
+        _logger = logger;
     }
 
     public async Task<int> CrearRecursosMarketplace(DMRecursosMarketplace objetoRecursoMarketplace,int idUsuario)
