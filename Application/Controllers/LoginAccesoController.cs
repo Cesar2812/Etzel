@@ -41,15 +41,6 @@ public class LoginAccesoController : Controller
         }
         else
         {
-
-            //if (usuarioEncontrado.Restablecer)
-            //{
-            //    TempData["IdUsuario"] = usuarioEncontrado.IdUsuario;
-            //    return RedirectToAction("CambiarClave", "Usuario");
-            //}
-            //else
-            //{
-
                 //creando Clains para parametrizar la autenticacion para pasarlos a la Cookie 
                 var claims = new List<Claim>
                 {
@@ -63,8 +54,6 @@ public class LoginAccesoController : Controller
                 //creando la cookie al iniciar sesion dentro de la app
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
                 return RedirectToAction("Bienvenida", "Marketplace");
-
-            //}
         }
     }
 

@@ -51,7 +51,7 @@
         <div class="modal-content">
             <!--PARTE DE ARRIBA DEL FORMULARIO-->
             <div class="modal-header text-black" style="background-color:rgb(241, 241, 241);">
-                <h5 class="modal-title" id="exampleModalLabel">DATOS DE MI RECURSO</h5>
+                <h5 class="modal-title" id="exampleModalLabel">PUBLICAR NUEVO RECURSO</h5>
                 <button type="button" class="btn-close" style="background-color: white; border: none; color: black;" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -105,21 +105,21 @@
                     </div>
 
                     <div class="col-sm-3">
-                         <div class="mb-3">
+                        <div class="mb-3">
                             <label class="form-label">Precio Si Aplica</label>
                             <input type="number" class="form-control" id="txtPrecio" name="Precio" autocomplete="off" />
                         </div>
-                       
-                       
                     </div>
-
                 </form>
             </div>
+
+
             <!--BOTONES DE ABAJO-->
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-success" onclick="GuardarRecurso()">Guardar</button>
             </div>
+
 
         </div>
     </div>
@@ -146,7 +146,7 @@
                         data: "objRecursoMarketplace.rutaArchivoRecurso",
                         render: function (data) {
                             if (data) {
-                                return `<img src="/${data}" class="img-thumbnail" style="width:60px;height:60px;" />`;
+                                return `<img src="/${data}" class="img-thumbnail" style="width:70px;height:70px;" />`;
                             } else {
                                 return `<span class="badge bg-secondary">Sin Imagen</span>`;
                             }
@@ -186,7 +186,7 @@
 
 
 
-             // al cambiar el estado del recurso
+        // al cambiar el estado del recurso
         $(document).on("change", "#comboEstadoRecurso", function () {
             let estadoSeleccionado = $("#comboEstadoRecurso option:selected").text().trim();
 
@@ -220,11 +220,15 @@
             $("#imagenRecurso").removeAttr("src");
             $("#fileRecurso").val("");
 
-             // al abrir modal, por defecto deshabilito el precio
+            $("#txtId").val(0);
+            $("#txtNombre").val(""),
+
+            $("#txtDescripcion").val(""),
+           
+
+            // al abrir modal, por defecto deshabilito el precio
             $("#txtPrecio").prop("disabled", true).val("");
-            $("#comboEstadoRecurso").val("0");
-             
-                
+            $("#comboEstadoRecurso").val("0");       
         } 
 
       
@@ -266,6 +270,7 @@
                 })
             }
         })
+
 
         //listarEstadoRecurso
         jQuery.ajax({
@@ -323,6 +328,7 @@
                 contentType:false,
                 success:function(response)
                 {
+                     
                     if( Recurso.IdRecurso==0){
                         if (response.success)
                         {

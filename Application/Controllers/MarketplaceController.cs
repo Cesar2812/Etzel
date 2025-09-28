@@ -14,6 +14,7 @@ public class MarketplaceController : Controller
     private readonly UCListarTipoRecurso _listarTipoRecusro;
     private readonly UCListarEstadoRecurso _listarEstadoRecurso;
     private readonly UCListarSectorEconomico _listarSectorEconomico;
+    private readonly UCListarTipoRecursoSector _listarTipoRecusroSector;
    
 
     private readonly UCAgregarRecurso _ucagregarRecurso;
@@ -24,7 +25,7 @@ public class MarketplaceController : Controller
     private readonly UCMostrarRecursosMarketplace _ucMostrarRecurso;
     public MarketplaceController(UCListarTipoRecurso listarTipoRecurso,UCListarEstadoRecurso listarEstadoRecurso, UCListarSectorEconomico listarSectorEconomico,
         UCAgregarRecurso agregarRecurso, UCSubirArchivoServidor ucSubirArchivo, UCGuardarArchivoEnBD uCGuardarArchivoEnBD, UCListarRecursosMarketplaceUsuario ucListarRecursosUsuario,
-        UCConvertirRecurso ucConvertirRecurso, UCMostrarRecursosMarketplace ucMostrarRecurso)
+        UCConvertirRecurso ucConvertirRecurso, UCMostrarRecursosMarketplace ucMostrarRecurso, UCListarTipoRecursoSector listarRecursoSector)
     {
         _listarTipoRecusro = listarTipoRecurso;
         _listarEstadoRecurso = listarEstadoRecurso; 
@@ -35,6 +36,7 @@ public class MarketplaceController : Controller
         _ucListarRecursosUsuario=ucListarRecursosUsuario;
         _ucConvertirRecurso = ucConvertirRecurso;
         _ucMostrarRecurso = ucMostrarRecurso;
+        _listarTipoRecusroSector=listarRecursoSector;
     }
 
     public IActionResult Bienvenida()
@@ -81,6 +83,12 @@ public class MarketplaceController : Controller
         return Json(new { listaSectorEconomico = lista });
     }
 
+     [HttpGet]
+     public async Task<IActionResult> ObtenerTipoRecursoPorSector(int idSector)
+     {
+        List<DMTipoRecurso> lista = await _listarTipoRecusroSector.ListarRecursoSector(idSector);
+        return Json(new { listaRecursoSector = lista });
+     }
 
     #endregion
 
@@ -162,8 +170,6 @@ public class MarketplaceController : Controller
     {
         var lista = await _ucMostrarRecurso.ListarRecursoMarketplace();
 
-        bool conversion;
-
         var listaRecurso = lista.Select(r => new DMUsuarioRecursosMarketplace()
         {
             objRecursoMarketplace = new DMRecursosMarketplace()
@@ -173,17 +179,22 @@ public class MarketplaceController : Controller
                 DescripcionRecurso = r.objRecursoMarketplace.DescripcionRecurso,
                 Precio = r.objRecursoMarketplace.Precio,
                 RutaArchivoRecurso = r.objRecursoMarketplace.RutaArchivoRecurso,
-                Base64 = _ucConvertirRecurso.convertirBase64(Path.Combine(r.objRecursoMarketplace.RutaArchivoRecurso, r.objRecursoMarketplace.NombreArchivoRecurso), out conversion),
-                Extension = Path.GetExtension(r.objRecursoMarketplace.NombreArchivoRecurso),
+                NombreArchivoRecurso = r.objRecursoMarketplace.NombreArchivoRecurso,
                 objTipoRecurso = r.objRecursoMarketplace.objTipoRecurso,
                 objTipoSectorEconomico = r.objRecursoMarketplace.objTipoSectorEconomico,
                 objEstadoRecurso = r.objRecursoMarketplace.objEstadoRecurso,
             },
-            objUsuario=r.objUsuario,
+            objUsuario = r.objUsuario,
             FechaPublicacion = r.FechaPublicacion
+        })
+        // Filtro condicional
+        .Where(r =>
+            (idSectorEconomico == 0 || r.objRecursoMarketplace.objTipoSectorEconomico.IdTipoSectorEconomico == idSectorEconomico) &&
+            (idTipoRecurso == 0 || r.objRecursoMarketplace.objTipoRecurso.IdTipoRecurso == idTipoRecurso)
+        ).ToList();
 
-        }).ToList();
         return Json(new { data = listaRecurso });
     }
+
     #endregion
 }

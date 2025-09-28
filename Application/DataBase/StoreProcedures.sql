@@ -1,13 +1,3 @@
-
-delete from RECURSOS.RecursosMarketplace
-
-delete from RECURSOS.UsuarioRecursosMarketplace
-
-DBCC CHECKIDENT('RECURSOS.RecursosMarketplace',RESEED,0) 
-go
-
-
-
 ----PROCEDIMIENTOS ALMACENADOS
 ---PROCEDMIENTO ALMACENADO PARA INSERTAR USUARIO---
 CREATE OR ALTER PROCEDURE SEGURIDAD.sp_RegistrarUsuario
@@ -127,8 +117,22 @@ BEGIN
 END
 GO
 
-select * from RECURSOS.RecursosMarketplace
-DELETE FROM RECURSOS.UsuarioRecursosMarketplace
+---QUERY PARA MOSTRAR TIPOS DE RECURSOS EN BASE A UN SECTOR ECONOMICO---
+	declare @idSector int=1
+	select distinct tr.IdTipoRecurso,tr.NombreTipoRecurso
+	from RECURSOS.RecursosMarketplace rm
+	inner join CATALOGOS.TipoSectorEconomico tpsc on rm.Id_tipoSectorEconomico=tpsc.IdTipoSectorEconomico
+	inner join CATALOGOS.TipoRecurso tr on rm.Id_tipoRecurso=tr.IdTipoRecurso
+	where tpsc.IdTipoSectorEconomico=iif(@idSector=1, tpsc.IdTipoSectorEconomico,@idSector)
+
+
+
+
+
+
+
+
+	go
 ----CONSULTA A BASE DE DATOS PARA MOSTRAR LOS RECURSOS QUE TIENE UN USUARIO EN SU MARKETPLACE---
 Select 
 IdRecurso,
@@ -165,10 +169,7 @@ SELECT DISTINCT
     tr.NombreTipoRecurso,
     ts.NombreSector,
     er.DescripcionEstadoRecurso,
-    COALESCE(
-        CONCAT(per.NombrePersona, ' ', pn.ApellidoPersonaNatural),
-        CONCAT(per.NombrePersona, ' ', pj.RazonSocial)
-    ) AS NombrePublicador
+	ru.DescripcionRol as Publicador
 FROM RECURSOS.UsuarioRecursosMarketplace urm
 INNER JOIN RECURSOS.RecursosMarketplace rm 
     ON urm.Id_recurso = rm.IdRecurso
@@ -180,13 +181,6 @@ INNER JOIN CATALOGOS.EstadoRecurso er
     ON rm.Id_estadoRecurso = er.IdEstadoRecurso
 INNER JOIN SEGURIDAD.Usuario u 
     ON urm.Id_usuario = u.IdUsuario
-INNER JOIN CATALOGOS.Persona per 
-    ON u.IdPersona = per.IdPersona
-LEFT JOIN CATALOGOS.PersonaNatural pn 
-    ON per.IdPersona = pn.Id_persona
-LEFT JOIN CATALOGOS.PersonaJuridica pj 
-    ON per.IdPersona = pj.Id_persona;
+inner join SEGURIDAD.RolUsuario ru on u.idTipoUsuario=ru.IdRolUsuario
 GO
-
-
 

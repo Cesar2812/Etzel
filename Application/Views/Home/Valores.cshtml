@@ -19,6 +19,13 @@
     header.full-width-header {
         width: 100vw; /* Asegura que el header ocupe todo el ancho del viewport */
         margin-left: calc(50% - 50vw); /* Truco para centrar y eliminar los márgenes */
+    } 
+
+    .timeline-image img {
+        width: 100%; /* Asegura que ocupe todo el ancho del contenedor */
+        height: 100%; /* Asegura que ocupe todo el alto del contenedor */
+        object-fit: cover; /* ¡LA CLAVE! Fuerza a la imagen a cubrir todo el espacio
+                              recortando los bordes si es necesario, sin distorsionar la imagen. */
     }
 
 </style>
@@ -47,7 +54,7 @@
         </div>
         <ul class="timeline">
             <li>
-                <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/1.jpg" alt="..." /></div>
+                <div class="timeline-image"><img class="rounded-circle img-fluid" src="~/images/Mision.png" alt="..." /></div>
 
                 <div class="timeline-panel">
                     <div class="timeline-heading">
@@ -64,7 +71,7 @@
 
             </li>
             <li class="timeline-inverted">
-                <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/2.jpg" alt="..." /></div>
+                <div class="timeline-image"><img class="rounded-circle img-fluid" src="~/images/Como-dar-la-mano.jpg" alt="..." /></div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
                         
