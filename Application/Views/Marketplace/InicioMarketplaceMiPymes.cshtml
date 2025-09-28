@@ -16,40 +16,56 @@
         color: white !important;
         border-color: rgb(23, 46, 112) !important;
     }
+
+    /* Tamaño estándar para imágenes (más pequeñas) */
+    .card-img-top {
+        height: 100px;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    /* Reducir separación del footer */
+    .card-footer {
+        margin-top: 0 !important;
+        padding-top: 0.4rem !important;
+        padding-bottom: 0.4rem !important;
+    }
+
+        /* Botón compacto */
+        .card-footer .btn {
+            margin-top: 0.2rem !important;
+            padding: 0.45rem;
+            font-size: 0.85rem;
+        }
 </style>
 
 <!--SECCION DE RECURSOS,CATEGORIAS Y MARCAS -->
 <section>
     <div class="container-fluid px-5 my-5">
-
-        <!--SECCION DE SECTOR ECONOMICO Y TIPO DE RECURSO -->
         <div class="row">
+            <!--SECCION DE FILTROS-->
             <div class="col-sm-3">
-
+                <!--SECTOR ECONOMICO-->
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <!--SECCION DE SECTOR ECONOMICO -->
                         <div class="card">
-                            <div class="card-header custom-header">
-                                SECTOR ECONOMICO
-                            </div>
-                            <div id="contenedor_categ" class="card-body"></div>
+                            <div class="card-header custom-header">SECTOR ECONOMICO</div>
+                            <div id="contenedor_sector" class="card-body"></div>
                         </div>
                     </div>
                 </div>
 
+                <!--TIPO DE RECURSO-->
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <!--SECCION DE TIPO DE RECURSO -->
                         <div class="card">
-                            <div class="card-header custom-header">
-                                TIPO DE RECURSO
-                            </div>
-                            <div id="contenedor_marca" class="card-body"></div>
+                            <div class="card-header custom-header">TIPO DE RECURSO</div>
+                            <div id="contenedor_tipoRecurso" class="card-body"></div>
                         </div>
                     </div>
                 </div>
 
+                <!--BOTON BUSCAR-->
                 <div class="row mb-3">
                     <div class="col-sm-12">
                         <div class="d-grid gap-2">
@@ -61,148 +77,159 @@
                 </div>
             </div>
 
-            <!--SECCION DE RECURSOS -->
+            <!--SECCION DE RECURSOS-->
             <div class="col-sm-9">
-                <div id="contenedorProductos" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5 class="fw-bolder">Fancy Product</h5>
-                                    $40.00 - $80.00
-                                </div>
-                            </div>
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5 class="fw-bolder">Sale Item</h5>
-                                    <span class="text-muted text-decoration-line-through">$50.00</span>
-                                    $25.00
-                                </div>
-                            </div>
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5 class="fw-bolder">Sale Item</h5>
-                                    <span class="text-muted text-decoration-line-through">$50.00</span>
-                                    $25.00
-                                </div>
-                            </div>
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5 class="fw-bolder">Sale Item</h5>
-                                    <span class="text-muted text-decoration-line-through">$50.00</span>
-                                    $25.00
-                                </div>
-                            </div>
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5 class="fw-bolder">Sale Item</h5>
-                                    <span class="text-muted text-decoration-line-through">$50.00</span>
-                                    $25.00
-                                </div>
-                            </div>
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5 class="fw-bolder">Sale Item</h5>
-                                    <span class="text-muted text-decoration-line-through">$50.00</span>
-                                    $25.00
-                                </div>
-                            </div>
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5 class="fw-bolder">Sale Item</h5>
-                                    <span class="text-muted text-decoration-line-through">$50.00</span>
-                                    $25.00
-                                </div>
-                            </div>
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5 class="fw-bolder">Sale Item</h5>
-                                    <span class="text-muted text-decoration-line-through">$50.00</span>
-                                    $25.00
-                                </div>
-                            </div>
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
-
+                <!-- 3 columnas por fila con menos separación lateral -->
+                <div id="contenedorProductos" class="row g-3 row-cols-1 row-cols-md-3 justify-content-center">
+                    <!-- Aquí se llenan los recursos con AJAX -->
                 </div>
             </div>
-
-            <!--PAGINADOR-->
-            <nav aria-label="Page navigation example">
-                <ul id="paginador" class="pagination justify-content-center"></ul>
-            </nav>
-
         </div>
     </div>
 </section>
 
+
+@section Scripts {
+    <script>
+
+        $(document).ready(function () {
+            MostrarSectorEconomico();
+            MostrarRecursosMarketplace(0, 0);
+        });
+
+        // Listar sectores económicos
+        function MostrarSectorEconomico() {
+            $.ajax({
+                url: '@Url.Action("ListarSectorEconomico", "Marketplace")',
+                type: "GET",
+                dataType: "json",
+                success: function (response) {
+                    $("#contenedor_sector").html("");
+
+                    $("<div>").addClass("form-check").append(
+                        $("<input>").addClass("form-check-input")
+                            .attr({ type: "radio", name: "sector", value: "0", id: "sector0", checked: true }),
+                        $("<label>").addClass("form-check-label").attr("for", "sector0").text("Todos")
+                    ).appendTo("#contenedor_sector");
+
+                    $.each(response.listaSectorEconomico, function (i, element) {
+                        $("<div>").addClass("form-check").append(
+                            $("<input>").addClass("form-check-input")
+                                .attr({ type: "radio", name: "sector", value: element.idTipoSectorEconomico, id: "sector" + i }),
+                            $("<label>").addClass("form-check-label").attr("for", "sector" + i).text(element.nombreSector)
+                        ).appendTo("#contenedor_sector");
+                    });
+
+                    MostrarTipoRecurso();
+                }
+            });
+        }
+
+        // Listar tipos de recurso según sector
+        function MostrarTipoRecurso() {
+            var _idSector = $("input[name=sector]:checked").val();
+
+            $.ajax({
+                url: '@Url.Action("ObtenerTipoRecursoPorSector", "Marketplace")' + '?idSector=' + _idSector,
+                type: "GET",
+                dataType: "json",
+                success: function (response) {
+                    $("#contenedor_tipoRecurso").html("");
+
+                    $("<div>").addClass("form-check").append(
+                        $("<input>").addClass("form-check-input")
+                            .attr({ type: "radio", name: "tiporecurso", value: "0", id: "tipo0", checked: true }),
+                        $("<label>").addClass("form-check-label").attr("for", "tipo0").text("Todos")
+                    ).appendTo("#contenedor_tipoRecurso");
+
+                    $.each(response.listaRecursoSector, function (i, element) {
+                        $("<div>").addClass("form-check").append(
+                            $("<input>").addClass("form-check-input")
+                                .attr({ type: "radio", name: "tiporecurso", value: element.idTipoRecurso, id: "tipo" + i }),
+                            $("<label>").addClass("form-check-label").attr("for", "tipo" + i).text(element.nombreTipoRecurso)
+                        ).appendTo("#contenedor_tipoRecurso");
+                    });
+                }
+            });
+        }
+
+        $(document).on("change", "input[name=sector]", function () {
+            MostrarTipoRecurso();
+        });
+
+        $("#btnFiltro").click(function () {
+            var idSector = $("input[name=sector]:checked").val();
+            var idTipoRecurso = $("input[name=tiporecurso]:checked").val();
+            MostrarRecursosMarketplace(idSector, idTipoRecurso);
+        });
+
+        // Mostrar recursos
+        function MostrarRecursosMarketplace(idSectorEconomico, idTipoRecurso) {
+            $.ajax({
+                url: '@Url.Action("MostrarRecursosMarketplace", "Marketplace")',
+                type: "POST",
+                data: JSON.stringify({ idSectorEconomico: idSectorEconomico, idTipoRecurso: idTipoRecurso }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    $("#contenedorProductos").html("");
+
+                    if (response.data.length === 0) {
+                        $("#contenedorProductos").append("<p class='text-center'>No se encontraron recursos.</p>");
+                        return;
+                    }
+
+                    $.each(response.data, function (i, r) {
+                        let estado = r.objRecursoMarketplace.objEstadoRecurso.descripcionEstadoRecurso;
+
+                        let btnStyle = "";
+                        let btnText = "";
+                        let btnElement = null;
+                        let precioHtml = "";
+
+                        if (estado === "Gratuito") {
+                            btnStyle = "background-color: rgb(0,168,108); color: white;";
+                            btnText = "Descargar";
+
+                            let filePath = "/uploads/" + r.objRecursoMarketplace.nombreArchivoRecurso;
+                            btnElement = $("<a>").attr("href", filePath).attr("download", r.objRecursoMarketplace.nombreArchivoRecurso)
+                                                 .addClass("btn w-100").attr("style", btnStyle).text(btnText);
+                        }
+                        else if (estado === "De Paga") {
+                            btnStyle = "background-color: rgb(23,46,112); color: white;";
+                            btnText = "Agregar al carrito";
+
+                            let precio = parseFloat(r.objRecursoMarketplace.precio).toLocaleString("es-NI", {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2
+                            });
+                            precioHtml = `<p><strong>Precio:</strong> C$ ${precio} + IVA</p>`;
+
+                            btnElement = $("<button>").addClass("btn w-100").attr("style", btnStyle).text(btnText);
+                        }
+
+                        let imgPath = "/uploads/" + r.objRecursoMarketplace.nombreArchivoRecurso;
+
+                        $("<div>").addClass("col mb-4").append(
+                            $("<div>").addClass("card h-100").append(
+                                $("<img>").addClass("card-img-top").attr({ src: imgPath, alt: r.objRecursoMarketplace.tituloRecurso }),
+                                $("<div>").addClass("card-body p-3").append(
+                                    $("<div>").addClass("text-center").append(
+                                        $("<h5>").addClass("fw-bolder").text(r.objRecursoMarketplace.tituloRecurso),
+                                        $("<p>").html("<strong>Sector:</strong> " + r.objRecursoMarketplace.objTipoSectorEconomico.nombreSector),
+                                        $("<p>").html("<strong>Tipo:</strong> " + r.objRecursoMarketplace.objTipoRecurso.nombreTipoRecurso),
+                                        $("<p>").html("<strong>Publicador:</strong> " + r.objUsuario.objRol.descripcionRol),
+                                        precioHtml
+                                    )
+                                ),
+                                $("<div>").addClass("card-footer border-top-0 bg-transparent").append(
+                                    $("<div>").addClass("d-grid gap-2").append(btnElement)
+                                )
+                            )
+                        ).appendTo("#contenedorProductos");
+                    });
+                }
+            });
+        }
+    </script>
+}

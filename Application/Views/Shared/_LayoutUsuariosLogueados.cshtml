@@ -45,6 +45,16 @@
                 height: 40px; /* Ajusta el tamaño del logo */
             }
 
+
+        /* FOOTER */
+        footer {
+            background-color: rgb(198, 98, 63) !important;
+            color: white;
+            width: 100%;
+            position: relative;
+            bottom: 0;
+        }
+
        
     </style>
 </head>
@@ -55,7 +65,7 @@
             <div class="container">
                 <!-- Sustituir texto por imagen -->
                 <a class="navbar-brand" href="#!">
-                    <img src="~/images/Imagotipo(1).png" alt="Logo" style="height: 90px; width:55px" />
+                    <img src="~/images/Imagotipo(1).png" alt="Logo" style="height: 55px; width:50px" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -79,7 +89,7 @@
                             <li class="nav-item ms-2">
                                 <a class="btn text-white fw-bold"
                                    style="background-color: rgb(0,168,108); font-size: 1.3rem; padding: 6px 16px; border-radius: 6px;"
-                                   asp-area="" asp-controller="Usuario" asp-action="CrearCuenta">
+                                   asp-area="" asp-controller="Formulaciones" asp-action="MisFormulaciones">
                                     Mis Formulaciones
                                 </a>
                             </li>
@@ -88,7 +98,7 @@
                             <li class="nav-item ms-2">
                                 <a class="btn text-white fw-bold"
                                    style="background-color: rgb(0,168,108); font-size: 1.3rem; padding: 6px 16px; border-radius: 6px;"
-                                   asp-area="" asp-controller="Usuario" asp-action="CrearCuenta">
+                                   asp-area="" asp-controller="Formulaciones" asp-action="CalculadoraDePorciones">
                                     Mi Calculadora De Porciones
                                 </a>
                             </li> 
@@ -108,7 +118,7 @@
                             <li class="nav-item ms-2">
                                 <a class="btn text-white fw-bold"
                                    style="background-color: rgb(0,168,108); font-size: 1.3rem; padding: 6px 16px; border-radius: 6px;"
-                                   asp-area="" asp-controller="Marketplace" asp-action="InicioMarketplacePerfilPorUsuario">
+                                   asp-area="" asp-controller="Marketplace" asp-action="ReporteComprasPorMypime">
                                     Mis Recursos Mas Comprados por las MiPymes
                                 </a>
                             </li>
@@ -167,7 +177,13 @@
             @RenderBody()
         </main>
     </div>
-
+    <!-- FOOTER -->
+    <footer class="text-center text-lg-start mt-auto">
+        
+        <div class="text-center p-3" style="background-color: rgba(0,0,0,0.2)">
+            © 2025 Copyright: <a class="text-white" href="#">YourWebsite.com</a>
+        </div>
+    </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

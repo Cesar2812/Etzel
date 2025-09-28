@@ -28,14 +28,11 @@ public class MostrarMarketplaceGeneral:IMostrarMarketplaceGeneral
         using (conexion = new SqlConnection(_conection.CadenaSQL))
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("SELECT DISTINCT rm.IdRecurso,rm.TituloRecurso,urm.FechaPublicacion[FechaPublicacion],Precio,rm.RutaArchivoRecurso,rm.NombreArchivoRecurso,");
-            sb.AppendLine("CAST(rm.DescripcionRecurso AS NVARCHAR(MAX)) AS DescripcionRecurso, tr.NombreTipoRecurso, ts.NombreSector,");
-            sb.AppendLine("er.DescripcionEstadoRecurso,COALESCE(CONCAT(per.NombrePersona, ' ', pn.ApellidoPersonaNatural), CONCAT(per.NombrePersona, ' ', pj.RazonSocial)) AS NombrePublicador");
-            sb.AppendLine("FROM RECURSOS.UsuarioRecursosMarketplace urm INNER JOIN RECURSOS.RecursosMarketplace rm ON urm.Id_recurso = rm.IdRecurso");
-            sb.AppendLine("INNER JOIN CATALOGOS.TipoRecurso tr  ON rm.Id_tipoRecurso = tr.IdTipoRecurso INNER JOIN CATALOGOS.TipoSectorEconomico ts  ON rm.Id_tipoSectorEconomico = ts.IdTipoSectorEconomico");
-            sb.AppendLine("INNER JOIN CATALOGOS.EstadoRecurso er  ON rm.Id_estadoRecurso = er.IdEstadoRecurso INNER JOIN SEGURIDAD.Usuario u  ON urm.Id_usuario = u.IdUsuario");
-            sb.AppendLine("INNER JOIN CATALOGOS.Persona per  ON u.IdPersona = per.IdPersona LEFT JOIN CATALOGOS.PersonaNatural pn  ON per.IdPersona = pn.Id_persona");
-            sb.AppendLine("LEFT JOIN CATALOGOS.PersonaJuridica pj  ON per.IdPersona = pj.Id_persona;");
+            sb.AppendLine("SELECT DISTINCT rm.IdRecurso, rm.TituloRecurso, urm.FechaPublicacion[FechaPublicacion], rm.Precio, rm.RutaArchivoRecurso,rm.NombreArchivoRecurso,");
+            sb.AppendLine("CAST(rm.DescripcionRecurso AS NVARCHAR(MAX)) AS DescripcionRecurso,tr.NombreTipoRecurso, ts.NombreSector,er.DescripcionEstadoRecurso,ru.DescripcionRol as Publicador");
+            sb.AppendLine("FROM RECURSOS.UsuarioRecursosMarketplace urm INNER JOIN RECURSOS.RecursosMarketplace rm   ON urm.Id_recurso = rm.IdRecurso INNER JOIN CATALOGOS.TipoRecurso tr ON rm.Id_tipoRecurso = tr.IdTipoRecurso");
+            sb.AppendLine("INNER JOIN CATALOGOS.TipoSectorEconomico ts   ON rm.Id_tipoSectorEconomico = ts.IdTipoSectorEconomico INNER JOIN CATALOGOS.EstadoRecurso er ON rm.Id_estadoRecurso = er.IdEstadoRecurso INNER JOIN SEGURIDAD.Usuario u ON urm.Id_usuario = u.IdUsuario");
+            sb.AppendLine("inner join SEGURIDAD.RolUsuario ru on u.idTipoUsuario=ru.IdRolUsuario");
 
             await conexion.OpenAsync();
             SqlCommand cmd = new SqlCommand(sb.ToString(), conexion);
@@ -68,7 +65,14 @@ public class MostrarMarketplaceGeneral:IMostrarMarketplaceGeneral
                                 DescripcionEstadoRecurso= dr["DescripcionEstadoRecurso"].ToString()!,
                             }
                         },
-                        FechaPublicacion = Convert.ToDateTime(dr["FechaPublicacion"])
+                        FechaPublicacion = Convert.ToDateTime(dr["FechaPublicacion"]),
+                        objUsuario=new DMUsuario()
+                        {
+                            objRol=new DMRol()
+                            {
+                                DescripcionRol = dr["Publicador"].ToString()!
+                            }
+                        }
                     });
                 }
             }

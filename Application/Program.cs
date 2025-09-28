@@ -76,6 +76,7 @@ builder.Services.AddScoped<UCObtenerMunicipio>();
 builder.Services.AddScoped<IListarEstadoRecurso,ObtenerEstadoRecurso>();
 builder.Services.AddScoped<IListarTipoRecusro, ObtenerTipoRecurso>();
 builder.Services.AddScoped<IListarSectorEconomico, ObtenerSectorEconomico>();
+builder.Services.AddScoped<IFilttarTipoRecursoSector, ListarTipoRecursoSector>();
 
 builder.Services.AddScoped<ICrearRecursoMarketplace, CrearRecursoMarketplace>();
 builder.Services.AddScoped<IGuardarArchivoBD, GuardarArchivoBD>();
@@ -88,6 +89,7 @@ builder.Services.AddScoped<IMostrarMarketplaceGeneral, MostrarMarketplaceGeneral
 builder.Services.AddScoped<UCListarEstadoRecurso>();
 builder.Services.AddScoped<UCListarTipoRecurso>();
 builder.Services.AddScoped<UCListarSectorEconomico>();
+builder.Services.AddScoped<UCListarTipoRecursoSector>();
 
 
 builder.Services.AddScoped<UCAgregarRecurso>();
